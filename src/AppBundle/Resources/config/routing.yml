@@ -1,0 +1,15 @@
+fids_home_list:
+    path:  /
+    defaults: { _controller: AppBundle:Front:list }
+fids_flight_list:
+    path:  /flight-list/{type}/{reseau}
+    defaults: { _controller: AppBundle:Front:flightInformation, type : "departure", reseau : "international" }
+fids_baggage_claim:
+    path:  /baggage-claim
+    defaults: { _controller: AppBundle:Front:baggageClaim }
+fids_checkin_list:
+    path:  /check-in-list
+    defaults: { _controller: AppBundle:Front:ckeckInList }
+fids_checkin_number:
+    path:  /check-in/{number}
+    defaults: { _controller: AppBundle:Front:ckeckInByComptoir, number : 0 }

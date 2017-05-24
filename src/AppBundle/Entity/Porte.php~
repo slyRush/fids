@@ -1,0 +1,200 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+//use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+/**
+ * Porte
+ *
+ * @ORM\Table(name="fids_porte")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PorteRepository")
+ */
+class Porte
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="numero", type="integer")
+     */
+    private $numero;
+    
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="isDispo", type="boolean", nullable=true)
+     */
+    private $isDispo;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255, nullable=true)
+     */
+    private $type;
+    
+    /** 
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Programme", inversedBy="porte")
+     */
+    private $programme;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProgrammePorte", mappedBy="porte")
+     */
+    private $programme_portes;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->programme = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set numero
+     *
+     * @param integer $numero
+     *
+     * @return Porte
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get numero
+     *
+     * @return integer
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    /**
+     * Set isDispo
+     *
+     * @param boolean $isDispo
+     *
+     * @return Porte
+     */
+    public function setIsDispo($isDispo)
+    {
+        $this->isDispo = $isDispo;
+
+        return $this;
+    }
+
+    /**
+     * Get isDispo
+     *
+     * @return boolean
+     */
+    public function getIsDispo()
+    {
+        return $this->isDispo;
+    }
+
+    /**
+     * Add programme
+     *
+     * @param \AppBundle\Entity\Programme $programme
+     *
+     * @return Porte
+     */
+    public function addProgramme(\AppBundle\Entity\Programme $programme)
+    {
+        $this->programme[] = $programme;
+
+        return $this;
+    }
+
+    /**
+     * Remove programme
+     *
+     * @param \AppBundle\Entity\Programme $programme
+     */
+    public function removeProgramme(\AppBundle\Entity\Programme $programme)
+    {
+        $this->programme->removeElement($programme);
+    }
+
+    /**
+     * Get programme
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProgramme()
+    {
+        return $this->programme;
+    }
+
+    /**
+     * Add programme_portes
+     *
+     * @param \AppBundle\Entity\ProgrammePorte $programme_portes
+     *
+     * @return Porte
+     */
+    public function addProgrammePorte(\AppBundle\Entity\ProgrammePorte $programme_portes)
+    {
+        $this->programme_portes[] = $programme_portes;
+
+        return $this;
+    }
+
+    /**
+     * Remove programme_portes
+     *
+     * @param \AppBundle\Entity\ProgrammePorte $programme_portes
+     */
+    public function removeProgrammePorte(\AppBundle\Entity\ProgrammePorte $programme_portes)
+    {
+        $this->programme_portes->removeElement($programme_portes);
+    }
+
+    /**
+     * Get programme_portes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProgrammePorte()
+    {
+        return $this->programme_portes;
+    }
+
+    /**
+     * Get programmePortes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProgrammePortes()
+    {
+        return $this->programme_portes;
+    }
+}

@@ -1,0 +1,8 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% block field %}
+    {% if  object.isDispo%}
+        <span class="label label-success">{{'oui'|trans}}</span>
+    {% else %}
+        <span class="label label-danger">{{'non'|trans}}</span>
+    {% endif %}
+{% endblock %}

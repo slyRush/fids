@@ -1,0 +1,6 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% block field %}
+    {% if object.logo != null %}
+        <img style="width: 250px; height: 250px;" src="{{ asset(object.logo)}}">
+    {% endif %}
+{% endblock %}

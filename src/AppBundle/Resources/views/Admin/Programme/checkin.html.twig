@@ -1,0 +1,13 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% block field %}
+    {% set checkin = object.checkIn %}
+    {% if checkin == "opened" %}
+        Ouvert
+    {% elseif checkin == "closed" %} 
+        Fermé
+    {% elseif checkin == "delayed" %} 
+        Retardé
+    {% elseif checkin == "canceled" %} 
+       Annulé  
+    {% endif %} 
+{% endblock %}

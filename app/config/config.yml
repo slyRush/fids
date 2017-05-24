@@ -1,0 +1,228 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: app-params.ini }
+    - { resource: "@AppBundle/Resources/config/services.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: fr
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'SonataCoreBundle:Form:datepicker.html.twig'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"        
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+# fos_user:
+    # db_driver: orm
+    # firewall_name: main
+    # user_class: AppBundle\Entity\User
+    # from_email: 
+        # address:     admin@example.com
+        # sender_name:    Example.com
+    # registration:
+        # confirmation:
+            # enabled:    true 
+            # template:   FOSUserBundle:Registration:email.txt.twig
+# sonata_block:
+    # default_contexts: [cms]
+    # blocks:
+        # enable the SonataAdminBundle block
+        # sonata.admin.block.admin_list:
+            # contexts: [admin]
+
+#sonata_user:
+#    security_acl: true
+#    manager_type: orm # can be orm or mongodb
+
+#sonata admin
+sonata_admin:
+    title: FIDS
+    dashboard:
+        groups:
+            app.admin.group.user:
+                label: Utilisateurs
+                label_catalogue: AppBundle
+                items:
+                    - app.admin.user
+            app.admin.group.content:
+                label: Gestion des vols
+                label_catalogue: AppBundle
+                items:
+                    - app.admin.compagnie
+                    - app.admin.vols
+                    - app.admin.programme
+            app.admin.group.comptoir:
+                label: Comptoirs
+                label_catalogue: AppBundle
+                items:
+                    - app.admin.comptoir
+            app.admin.group.porte:
+                label: Portes d'embarquement
+                label_catalogue: AppBundle
+                items:
+                    - app.admin.porte
+                    
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        #...
+        # sonata.user.block.menu:    # used to display the menu in profile pages
+        # sonata.user.block.account: # used to display menu option (login option)
+        # sonata.block.service.text: # used to if you plan to use Sonata user routes
+        sonata.admin.block.admin_list:
+             contexts: [admin]
+
+# app/config/security.yml
+security:
+    # [...]
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+    acl:
+        connection: default
+##
+# fos_user:
+    # db_driver:      orm # can be orm or odm
+    # firewall_name:  main
+    # user_class:     Sonata\UserBundle\Entity\BaseUser    
+    # group:
+        # group_class:   Sonata\UserBundle\Entity\BaseGroup
+        # group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+
+    # service:
+        # user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
+fos_user:
+    db_driver:      orm # can be orm or odm
+    firewall_name:  main
+    user_class:     Application\Sonata\UserBundle\Entity\User
+    group:
+        group_class:   Application\Sonata\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+
+    service:
+        user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
+
+doctrine:
+
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+doctrine:
+
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    ApplicationSonataUserBundle: ~
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~                                    # If SonataUserBundle extends it
+security:
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        SONATA:
+            - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_manager
+
+    firewalls:
+        # Disabling the security for the web debug toolbar, the profiler and Assetic.
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        # -> custom firewall for the admin area of the URL
+        admin:
+            pattern:            /admin(.*)
+            context:            user
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /admin/login
+                use_forward:    false
+                check_path:     /admin/login_check
+                failure_path:   null
+            logout:
+                path:           /admin/logout
+                target:         /admin/login
+            anonymous:          true
+
+        # -> end custom configuration
+
+        # default login area for standard users
+
+        # This firewall is used to handle the public login area
+        # This part is handled by the FOS User Bundle
+        main:
+            pattern:             .*
+            context:             user
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
+            logout:             true
+            anonymous:          true

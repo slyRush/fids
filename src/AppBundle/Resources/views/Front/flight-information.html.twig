@@ -1,0 +1,61 @@
+{% extends 'AppBundle:Front:base_display.html.twig' %}
+{% block mostviewbody %}
+    <section class="display_content">
+        <div class="departures">
+            {% if typeDisplayed == "depart" %}
+                DEPART
+            {% else %}
+                ARRIVEE
+            {% endif %}    
+        </div>
+        <div class="departures_flight_info">
+            <div>
+                <div class="flight_col">{{'Compagnie' | trans}}</div>
+                <div class="flight_col">{{'Numéro de vol' | trans}}</div>
+                <div class="flight_col">{{'Destination' | trans}}</div>
+                <div class="flight_col">{{'Programmé' | trans}}</div>
+                <div class="flight_col">{{'Remarque' | trans}}</div>
+            </div>
+            <div class="border_raw"></div>
+            {% for flight in flights %}
+                <div>
+                    {% if flight['type'] == typeDisplayed and flight['reseau'] == reseauDisplayed %}
+                        <div class="flight_col">
+                            {% if flight['logo'] != null %}
+                                <img style="width: 50px; height: 50px;" src="{{ asset(flight['logo'])}}">
+                            {% endif %}
+                        </div>
+                        <div class="flight_col">{{flight['nom_vol']}}</div>
+                        <div class="flight_col">
+                            {% if typeDisplayed == "depart" %}
+                                {{flight['destination']}}
+                            {% else %}    
+                                {{flight['depart']}}
+                            {% endif %}
+                        </div>
+                        <div class="flight_col">
+                            {% if typeDisplayed == "depart" %}
+                                {{flight['heureDepart']|date('H:i')}}
+                            {% else %}    
+                                {{flight['heureArrivee']|date('H:i')}}
+                            {% endif %}
+                        </div>
+                        <div class="flight_col">
+                            {% set status = flight['statut'] %}
+                            {% if status == "ontime" %}
+                                En cours
+                            {% elseif status == "departed" %}    
+                                Parti
+                            {% elseif status == "landed" %} 
+                                A atteri
+                            {% endif %}    
+                        </div>  
+                    {% endif %}
+                </div>
+                {% if flight['type'] == typeDisplayed and flight['reseau'] == reseauDisplayed %}
+                    <div class="border_final_raw"></div>
+                {% endif %}
+            {% endfor%}    
+        </div>
+    </section>
+{% endblock %}

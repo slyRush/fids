@@ -1,0 +1,85 @@
+services:
+    common.manager:
+        class: AppBundle\Manager\CommonManager
+        arguments: [@mailer, @service_container, '@templating', @translator]
+    program.manager:
+        class: AppBundle\Manager\ProgrammeManager
+        arguments: [@doctrine.orm.entity_manager, @service_container, @translator]
+    app.admin.user:
+            class: AppBundle\Admin\UserAdmin
+            tags:
+                - name: sonata.admin
+                  manager_type: orm
+                  group: "app.admin.group.user"
+                  label: "Utilisateurs"
+                  label_catalogue: "AppBundle"
+
+            arguments:
+                - ~
+                - AppBundle\Entity\User
+                - ~
+    app.admin.vols:
+            class: AppBundle\Admin\VolsAdmin
+            tags:
+                - name: sonata.admin
+                  manager_type: orm
+                  group: "app.admin.group.content"
+                  label: "Vols"
+                  label_catalogue: "AppBundle"
+
+            arguments:
+                - ~
+                - AppBundle\Entity\Vols
+                - ~  
+    app.admin.compagnie:
+            class: AppBundle\Admin\CompagnieAdmin
+            tags:
+                - name: sonata.admin
+                  manager_type: orm
+                  group: "app.admin.group.content"
+                  label: "Compagnie"
+                  label_catalogue: "AppBundle"
+
+            arguments:
+                - null
+                - AppBundle\Entity\Compagnie
+                - AppBundle:CompagnieAdmin  
+    app.admin.programme:
+            class: AppBundle\Admin\ProgrammeAdmin
+            tags:
+                - name: sonata.admin
+                  manager_type: orm
+                  group: "app.admin.group.content"
+                  label: "Programme"
+                  label_catalogue: "AppBundle"
+
+            arguments:
+                - ~
+                - AppBundle\Entity\Programme
+                - AppBundle:ProgrammeAdmin  
+    app.admin.comptoir:
+            class: AppBundle\Admin\ComptoirAdmin
+            tags:
+                - name: sonata.admin
+                  manager_type: orm
+                  group: "app.admin.group.comptoir"
+                  label: "Comptoir"
+                  label_catalogue: "AppBundle"
+
+            arguments:
+                - ~
+                - AppBundle\Entity\Comptoir
+                - AppBundle:ComptoirAdmin 
+    app.admin.porte:
+            class: AppBundle\Admin\PorteAdmin
+            tags:
+                - name: sonata.admin
+                  manager_type: orm
+                  group: "app.admin.group.porte"
+                  label: "Porte"
+                  label_catalogue: "AppBundle"
+
+            arguments:
+                - ~
+                - AppBundle\Entity\Porte
+                - AppBundle:PorteAdmin 

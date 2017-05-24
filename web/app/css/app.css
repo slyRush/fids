@@ -1,0 +1,112 @@
+html, body{
+   margin: 0px;
+   padding: 0px;
+   outline: 0px;
+   height: 100%;
+}
+.fids{
+    background-image: url("../../app/images/bgd.jpg");
+    width: 100%;
+    height: 100%;
+}
+.header {
+    background: #74c8ee;
+    align-items: center;
+    align-content: center;
+}
+.content_list{
+    padding-left: 528px;
+    padding-top: 200px;
+}
+.content_list ul li .iko_international_depart{
+    height: 50px;
+    width: 50px;
+    background: url("../../app/images/depart.gif");
+    display: inline-block;
+}
+.content_list ul li .iko_international_arrival{
+    height: 50px;
+    width: 50px;
+    background: url("../../app/images/arrival.jpg");
+    display: inline-block;
+}
+.national_arrival{
+    
+}
+.airport_nav{
+    /*background-color: #3871AD;*/
+    height: 75px;
+    position: relative;
+}
+.airport_nav .info{
+    color: #FFFFFF;
+    font-size: 12px;
+    height: 20px;
+    width: 175px;
+    position: absolute;
+    left: 100px;
+    top: 33px;
+}
+.airport_nav .logo_{
+    padding-left: 40px;
+    padding-top: 15px;
+}
+.logo_ img{
+    width: 50px;
+    height: 50px;
+}
+.airport_nav .day_name{
+    right: 110px;
+    top: 12px;
+    color: #FFFFFF;
+    position: absolute;
+    font-size: 26px;
+}
+.airport_nav .current_date{
+    right: 110px;
+    top: 45px;
+    color: #FFFFFF;
+    position: absolute;
+}
+.airport_nav .current_time{
+    right: 40px;
+    top: 24px;
+    color: #FFFFFF;
+    position: absolute;
+    font-size: 26px;
+    border: 1px;
+    border-style: solid;
+}
+.display_content{
+    background-color: #393B3D;
+    color: #FFFFFF;
+    height: 100%;
+    padding-left: 40px;
+}
+.departures{
+    font-size: 31px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+.flight_col{
+    display: inline-block;
+    width: 250px;
+    font-size: 18px;
+}
+.checkin_col{
+    display: inline-block;
+    width: 200px;
+    font-size: 18px;
+}
+.border_raw{
+    height: 0px;
+    color: #FFFFFF;
+    border: 2px;
+    border-style: solid;
+}
+.border_final_raw{
+    height: 0px;
+    color: #75808B;
+    border: 1px;
+    border-style: solid;
+}
