@@ -27,7 +27,7 @@ class FrontController extends Controller{
     public function flightInformationAction(Request $request){
         $typeVol = $request->get('type');
         $reseau = $request->get('reseau');
-        $programManager = $this->get('program.manager');
+        $programManager = $this->get('program.manager');        
         $flights = $programManager->getFlightInformation();
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));

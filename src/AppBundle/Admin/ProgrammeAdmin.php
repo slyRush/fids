@@ -58,6 +58,22 @@ class ProgrammeAdmin extends Admin
                             'label' => 'Comptoir',
                             'expanded' => true,
                             'multiple' => true,
+                            /*'group_by' => function($val, $key, $index) {
+                                if ($val->getType() =='national') {
+                                    return 'Soon';
+                                } else {
+                                    return 'Later';
+                                }
+                            },*/
+                            'choice_label' => function ($value, $key, $index) {
+                                
+                                if ($value->getType() == 'national') {
+                                    return 'n° '.$value->getNUmero().' (national)';
+                                } else {
+
+                                    return 'n° '.$value->getNUmero().' (international)';
+                                }
+                            },
                             'query_builder' => function (\Doctrine\ORM\EntityRepository $repository) {
                                $id = $this->id($this->getSubject()) ;
                                $queryEdit = $repository->createQueryBuilder('pos')
@@ -76,6 +92,15 @@ class ProgrammeAdmin extends Admin
                             'label' => "Porte d'embarquement",
                             'expanded' => true,
                             'multiple' => true,
+                            'choice_label' => function ($value, $key, $index) {
+                                
+                                if ($value->getType() == 'national') {
+                                    return 'n° '.$value->getNUmero().' (national)';
+                                } else {
+
+                                    return 'n° '.$value->getNUmero().' (international)';
+                                }
+                            },
                             'query_builder' => function (\Doctrine\ORM\EntityRepository $repository) {
                                 $id = $this->id($this->getSubject()) ;
                                 $queryEdit = $repository->createQueryBuilder('pos')
