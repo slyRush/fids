@@ -111,3 +111,12 @@ html, body{
     border: 1px;
     border-style: solid;
 }
+.head_tabs{
+    font-size: 24px;
+}
+.content_tabs{
+    font-size: 35px;
+}
+span.content_status_tabs{
+    font-size: 35px;
+}
