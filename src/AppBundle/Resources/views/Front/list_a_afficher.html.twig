@@ -5,33 +5,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>{% block title %}Bienvenue!{% endblock %}</title>
   <link href="{{ asset("app/css/app.css")}}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
 </head>
 <body>
-    <div class="fids">
-        <div class="content_list">
-            <ul>
-                {#<li><a href="{{path('fids_flight_list', {'view' : 'iJ8Huf6levg'})}}" title=""><i class="iko international_depart"></i><span>{{'mesidentifiants'|trans|raw}}</span></a></li>#}
-                <li><a href="{{path('fids_flight_list', {'type' : 'depart', 'reseau' : 'international'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{'Vols de départ international'|trans|raw}}</span></a></li>
-                <li><a href="{{path('fids_flight_list', {'type' : 'arrivee', 'reseau' : 'international'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{"Vols d'arrivée international"|trans|raw}}</span></a></li>
-                <li><a href="{{path('fids_flight_list', {'type' : 'depart', 'reseau' : 'national'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{'Vols de départ national'|trans|raw}}</span></a></li>
-                <li><a href="{{path('fids_flight_list', {'type' : 'arrivee', 'reseau' : 'national'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{"Vols d'arrivée national"|trans|raw}}</span></a></li>
-                <li><a id="check_in" href="{{path('fids_checkin_list')}}" title=""><!--i class="iko_international_arrival"></i--><span>{{'Liste Check In'|trans|raw}}</span></a></li>
-                <div id="check_in_list" style="display: none;">
-                    <ul id="list">
-                        <a href=""><li id="1">1</li></a>
-                        <a href=""><li id="2">2</li></a>
-                        <a href=""><li id="3">3</li></a>
-                        <a href=""><li id="4">4</li></a>
-                        <a href=""><li id="5">5</li></a>
-                    </ul>
-                </div>
-                <li><a href="{{path('fids_baggage_claim')}}" title=""><!--i class="iko_international_arrival"></i--><span>{{'Situtation bagage'|trans|raw}}</span></a></li>
-            </ul>
+    <div class="container fids" style="width: 100%; height: 100%; background-repeat-x: no-repeat; background-repeat-y: no-repeat;">
+        <div class="row">
+            <div class="content_list">
+                <h2 style="color: #fff">Bonjour, bienvenue sur l'espace d'administration de FIDS</h2>
+                <p id="time" style="color: #fff"></p>
+                <ul class="list-group">
+                    {#<li><a href="{{path('fids_flight_list', {'view' : 'iJ8Huf6levg'})}}" title=""><i class="iko international_depart"></i><span>{{'mesidentifiants'|trans|raw}}</span></a></li>#}
+                    <li class="list-group-item justify-content-between">
+                        <a href="{{path('fids_flight_list', {'type' : 'depart', 'reseau' : 'international'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{'Vols de départ international'|trans|raw}}</span></a>
+                        <span class="badge badge-default badge-pill">0</span>
+                    </li>
+                    <li class="list-group-item justify-content-between">
+                        <a href="{{path('fids_flight_list', {'type' : 'arrivee', 'reseau' : 'international'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{"Vols d'arrivée international"|trans|raw}}</span></a>
+                        <span class="badge badge-default badge-pill">0</span>
+                    </li>
+                    <li class="list-group-item justify-content-between">
+                        <span>{{'Vols de départ national'|trans|raw}}</span>
+                    </li>
+                    <li class="list-group-item justify-content-between">
+                        <a href="{{path('fids_flight_list', {'type' : 'arrivee', 'reseau' : 'national'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{"Vols d'arrivée national"|trans|raw}}</span></a>
+                        <span class="badge badge-default badge-pill">1</span>
+                    </li>
+                    <li class="list-group-item justify-content-between">
+                        <a id="check_in" href="{{path('fids_checkin_list')}}" title=""><!--i class="iko_international_arrival"></i--><span>{{'Liste Check In'|trans|raw}}</span></a>
+                        <span class="badge badge-default badge-pill">0</span>
+                    </li>
+                    <div id="check_in_list" style="display: none;">
+                        <ul id="list">
+                            <a href=""><li id="1">1</li></a>
+                            <a href=""><li id="2">2</li></a>
+                            <a href=""><li id="3">3</li></a>
+                            <a href=""><li id="4">4</li></a>
+                            <a href=""><li id="5">5</li></a>
+                        </ul>
+                    </div>
+                    <li class="list-group-item justify-content-between">
+                        <a href="{{path('fids_baggage_claim')}}" title=""><!--i class="iko_international_arrival"></i--><span>{{'Situtation bagage'|trans|raw}}</span></a>
+                        <span class="badge badge-default badge-pill">0</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 {% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-        jQuery(document).ready(function ($) {
+        function formatDate(date) {
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            var strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+            return date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "  " + strTime;
+        }
+        var timestamp = '<?=time();?>';
+        function updateTime(){
+            var displayDate = Date(timestamp);
+            var realDate = new Date(displayDate);
+            $('#time').html(formatDate(realDate));
+            timestamp++;
+        }
+
+        $(document).ready(function () {
+            setInterval(updateTime, 1000);
+
             $("#check_in").click(function() {
                 $("#check_in_list").show();
                 $("li#1").fadeToggle(500);
