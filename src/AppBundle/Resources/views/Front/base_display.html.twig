@@ -5,29 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>{% block title %}Bienvenue!{% endblock %}</title>
   <link href="{{ asset("app/css/app.css")}}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
 </head>
 <body>
-    <section class="airport_nav" style="background-color: {{color}};">
-        <div class="logo_">
-            <img src="{{ asset("app/images/" ~ logo)}}">
-        </div>
-        <div class="info">
-            {{title}}
-        </div>
-        <div class="day_name">{{day_name|capitalize}}</div>
-        <div class="current_date">
-            {{dateTime|date('d F, Y')}}
-        </div>
-        <div class="current_time">{{dateTime|date('H:i')}}</div>    
-    </section>
-    {% block mostviewbody %}   
-    {% endblock %}    
+    <div class="container-fluid" style="background-color: #292b2c; height: 100%; margin: 0">
+        <section class="airport_nav" style="background-color: {{color}};">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo_">
+                        <img src="{{ asset("app/images/" ~ logo)}}">
+                    </div>
+                    <div class="info" style="margin-left: 20px">
+                        {{title}}
+                    </div>
+                </div>
+                <div class="col-md-6 pull-right"><div id="time" style="float: right; color: #fff"></div></div>
+            </div>
+        </section>
+        {% block mostviewbody %}{% endblock %}
+    </div>
 {% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-        /*setInterval(function(){ 
-            location.reload() ;
+        var timestamp = '<?=time();?>';
+        function updateTime(){
+            $('#time').html(Date(timestamp));
+            timestamp++;
         }
-        ,30000);*/
+
+        $(document).ready(function () {
+            setInterval(updateTime, 1000);
+        });
     </script>
 {% endblock %}
 </body>

@@ -5,7 +5,8 @@ html, body{
    height: 100%;
 }
 .fids{
-    background-image: url("../../app/images/bgd.jpg");
+    /*background-image: url("../../app/images/bgd.jpg");*/
+    background-color: #292b2c;
     width: 100%;
     height: 100%;
 }
