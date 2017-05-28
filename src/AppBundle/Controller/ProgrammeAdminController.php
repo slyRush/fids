@@ -81,6 +81,9 @@ class ProgrammeAdminController extends Controller
                         $programManager->manageRelation($req['porte'], $object, "Porte") ;
                     }
                     /* relation programme comptoir et porte */
+
+                    //Gestion status terminer
+                    $programManager->manageStatusTerminer($object) ;
                     
                     if ($this->isXmlHttpRequest()) {
                         return $this->renderJson(array(
@@ -218,6 +221,8 @@ class ProgrammeAdminController extends Controller
                         $programManager->manageRelation($req['porte'], $object, "Porte") ;
                     }
                     /* relation programme comptoir et porte */
+                    //Gestion status terminer
+                    $programManager->manageStatusTerminer($object) ;
                     
                     if ($this->isXmlHttpRequest()) {
                         return $this->renderJson(array(

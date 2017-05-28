@@ -232,7 +232,7 @@
                 success : function (resData){
                         $('.content-info').empty();
                         $.each(resData, function (index, value){
-                            if(value.reseau == reseauDisplayed && value.type == typeDisplayed){
+                            if(value.reseau == reseauDisplayed && value.type == typeDisplayed && value.statut !='termine'){
                                
                                 content = '';
                                 content+= appendElementTh(value.nom_vol)

@@ -102,12 +102,12 @@ class Programme
     private $porte;
     
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProgrammeComptoir", mappedBy="programme")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProgrammeComptoir", mappedBy="programme",cascade={"remove"})
      */
     private $programme_comptoirs;
     
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProgrammePorte", mappedBy="programme")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProgrammePorte", mappedBy="programme",cascade={"remove"})
      */
     private $programme_portes;
     

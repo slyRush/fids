@@ -55,6 +55,52 @@ class ProgrammeManager extends Controller {
             $this->removePorteToP($allRelation, $relationTab) ;//supprimer les portes décochés
         }
     }
+
+    public function manageStatusTerminer($oProgramme){
+        if($oProgramme->getStatut() == 'termine'){
+            // supprimer les relation
+              $this->setIdVolToNull($oProgramme);
+              $this->removeAllComptoirToP($oProgramme)  ;
+              $this->removeAllPorteToP($oProgramme)  ;
+        }
+    }
+
+    private function removeAllComptoirToP($oProgramme){        
+        foreach ($oProgramme->getProgrammeComptoir() as $value) { 
+            $this->setComptoirDispo($value);                               
+            $oProgramme->removeProgrammeComptoir($value);
+        } 
+        $this->em->persist($oProgramme);
+        $this->em->flush($oProgramme);
+    }
+    private function removeAllPorteToP($oProgramme){
+        foreach ($oProgramme->getProgrammePortes() as $value) {
+            $this->setPorteDispo($value); 
+            $oProgramme->removeProgrammePorte($value);
+        } 
+        $this->em->persist($oProgramme);
+        $this->em->flush($oProgramme);
+    }
+
+    private function setIdVolToNull($oProgramme){
+        $oProgramme->setIdVols(null);
+        $this->em->persist($oProgramme);
+        $this->em->flush($oProgramme);
+
+    }
+
+
+    private function setComptoirDispo($oProgrammeComptoir){
+        $comptoir = $oProgrammeComptoir->getComptoir()->setIsDispo(1) ;
+        $this->em->persist($comptoir);
+        $this->em->flush($comptoir);
+    }
+
+    private function setPorteDispo($oProgrammePorte){
+        $porte = $oProgrammePorte->getPorte()->setIsDispo(1) ;
+        $this->em->persist($porte);
+        $this->em->flush($porte);
+    }
     
     /*
      * ajout relation programme et comptoir

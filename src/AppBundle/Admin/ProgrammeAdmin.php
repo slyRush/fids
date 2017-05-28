@@ -126,6 +126,7 @@ class ProgrammeAdmin extends Admin
                             'decolle' => 'Décollé',
                             'retarde' => 'Retardé',
                             'pose' => 'Posé',
+                            'termine' => 'Terminé',
                             'annule' => 'Annulé'
                         ),
                         'data' => ""
