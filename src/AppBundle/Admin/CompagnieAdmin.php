@@ -38,6 +38,7 @@ class CompagnieAdmin extends Admin
             $options['help'] = '<img style="width: 100px; height: 100px;" src="' . $basePath . $path . '" />';
         }
         $options['data'] = $logo ;
+        $options['label'] = 'logo (145px x 60px)';
         $formMapper  
                 ->add('id_compagnie', 'text', array('label' => 'Id','required' => true ))
                 ->add('nom', 'text', array('label' => 'Nom','required' => true ))
