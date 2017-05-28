@@ -16,7 +16,7 @@
                         <img src="{{ asset("app/images/" ~ logo)}}">
                     </div>
                     <div class="info" style="margin-left: 20px">
-                        {{title}}
+                        {{title}} 
                     </div>
                 </div>
                 <div class="col-md-6 pull-right"><div id="time" style="float: right; color: #fff"></div></div>
@@ -38,7 +38,7 @@
             hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
             var strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
-            return date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "  " + strTime;
+            return date.getDate() + " " + setMonthToString((date.getMonth()+1)) + " " + date.getFullYear() + "  " + strTime;
         }
         function updateTime(){
             var displayDate = Date(timestamp);
@@ -46,10 +46,281 @@
             $('#time').html(formatDate(realDate));
             timestamp++;
         }
+        function setMonthToString($monthInt){
+            
+            $ret = '';
+            switch ($monthInt){
+                case 1 : $ret = 'Janvier' ; break ;
+                case 2 : $ret = 'Février' ; break ;
+                case 3 : $ret = 'Mars' ; break ;
+                case 4 : $ret = 'Avril' ; break ;
+                case 5 : $ret = 'Mai' ; break ;
+                case 6 : $ret = 'Juin' ; break ;
+                case 7 : $ret = 'Juillet' ; break ;
+                case 8 : $ret = 'Aout' ; break ;
+                case 9 : $ret = 'Septembre' ; break ;
+                case 10 : $ret = 'Octobre' ; break ;
+                case 11 : $ret = 'Novembre' ; break ;
+                case 12 : $ret = 'Décembre' ; break ;
+            }            
+            return $ret;
+        }
 
         $(document).ready(function () {
             setInterval(updateTime, 1000);
+            /*setTimeout(function(){
+                window.location.reload();
+        }, 1000 *60* 2);*/
+
+        switch (getCurentRouteName()) {
+            case 'fids_flight_list':
+                setInterval(ajaxCallFlightInformation, ajaxTimeUpdate(2) );
+                break;
+            
+            case 'fids_baggage_claim':
+                
+                break;
+            case 'fids_baggage_claim':
+                
+                break;
+                
+            case 'fids_checkin_list':
+                
+                break; 
+            case 'fids_checkin_number':
+                setInterval(ajaxCallCheckInBy, ajaxTimeUpdate(0.25) );
+                break; 
+            case 'fids_porte_list':
+                
+                break; 
+            case 'fids_porte_number':
+                setInterval(ajaxCallPorteBy, ajaxTimeUpdate(2) );
+                break; 
+
+        }
+        
+        
         });
+        function ajaxTimeUpdate(min){
+            return 1000*60*min ;
+        }
+
+        function getCurentRouteName(){
+            return "{{app.request.attributes.get('_route')}}";
+        }
+
+
+function ajaxCallCheckInBy() {
+            /*var reseauDisplayed = $('.flight-info').attr('data-reseauDisplayed');
+            var typeDisplayed = $('.flight-info').attr('data-typeDisplayed');*/
+            $.ajax({
+                url : "{{path('fids_checkin_number_ajax')}}" ,
+                methode: 'post',
+                dataType: 'json',
+                data: {
+                    id : '{{app.request.get("id")}}',
+                },
+                success : function (resData){
+                        console.log(resData);
+                        $('.content-info').empty();
+                        $.each(resData, function (index, value){
+                            //if(value.reseau == reseauDisplayed && value.type == typeDisplayed){
+                                console.log(value);
+                                //console.log(reseauDisplayed);
+                                console.log(value.checkIn);
+                                console.log(value.compagnie);
+                                console.log(value.depart);
+                                console.log(value.destination);
+                                console.log(value.logo);
+                                console.log(value.type);
+                                console.log(value.statut);
+                                console.log(value.num_vol);
+                                console.log(value.heureArrivee.date);
+                                console.log(value.heureDepart.date);
+
+                                //date.getHours()
+                                content = '';
+                                content+= appendElementTd(value.num_comptoir)
+                                
+                                content+= appendElementImage(value.logo)
+                                content+= appendElementTd(value.nom_vol)
+                                if (value.type == 'depart'){
+                                    content+= appendElementTd(value.destination)
+
+                                }else{
+                                    content+= appendElementTd(value.depart)
+                                }
+
+                                if (value.type == 'depart'){
+                                    content+= appendElementTd(getHour(value.heureDepart.date))
+
+                                }else{
+                                    content+= appendElementTd(getHour(value.heureArrivee.date))
+                                }
+
+                                
+
+                                content+= appendElementTdColored(value.statut)
+                                
+
+                                $('.content-info').append('<tr>'+content+'</tr>');
+
+
+                            //}
+                            
+                        });
+                }
+            });
+
+        }
+        
+        function ajaxCallPorteBy() {
+            
+            $.ajax({
+                url : "{{path('fids_porte_number_ajax')}}" ,
+                methode: 'post',
+                dataType: 'json',
+                data: {
+                    id : '{{app.request.get("id")}}',
+                },
+                success : function (resData){
+                        console.log(resData);
+                        $('.content-info').empty();
+                        $.each(resData, function (index, value){
+                            
+                                content = '';
+                                content+= appendElementTd(value.num_porte)
+                                
+                                content+= appendElementImage(value.logo)
+                                content+= appendElementTd(value.nom_vol)
+                                if (value.type == 'depart'){
+                                    content+= appendElementTd(value.destination)
+
+                                }else{
+                                    content+= appendElementTd(value.depart)
+                                }
+
+                                if (value.type == 'depart'){
+                                    content+= appendElementTd(getHour(value.heureDepart.date))
+
+                                }else{
+                                    content+= appendElementTd(getHour(value.heureArrivee.date))
+                                }
+
+                                
+
+                                content+= appendElementTdColored(value.statut)
+                                
+
+                                $('.content-info').append('<tr>'+content+'</tr>');
+                            
+                        });
+                }
+            });
+
+        }
+
+        function ajaxCallFlightInformation() {
+            var reseauDisplayed = $('.flight-info').attr('data-reseauDisplayed');
+            var typeDisplayed = $('.flight-info').attr('data-typeDisplayed');
+            $.ajax({
+                url : "{{path('fids_flight_list_ajax')}}" ,
+                methode: 'post',
+                dataType: 'json',
+                data: {
+                    type : typeDisplayed,
+                    reseau : reseauDisplayed,
+                },
+                success : function (resData){
+                        $('.content-info').empty();
+                        $.each(resData, function (index, value){
+                            if(value.reseau == reseauDisplayed && value.type == typeDisplayed){
+                               
+                                content = '';
+                                content+= appendElementTh(value.nom_vol)
+                                
+                                content+= appendElementImage(value.logo)
+                                if (value.type == 'depart'){
+                                    content+= appendElementTd(value.destination)
+
+                                }else{
+                                    content+= appendElementTd(value.depart)
+                                }
+
+                                if (value.type == 'depart'){
+                                    content+= appendElementTd(getHour(value.heureDepart.date))
+
+                                }else{
+                                    content+= appendElementTd(getHour(value.heureArrivee.date))
+                                }
+
+                                
+
+                                content+= appendElementTdColored(value.statut)
+                                
+
+                                $('.content-info').append('<tr>'+content+'</tr>');
+
+
+                            }
+                            
+                        });
+                }
+            });
+
+        }
+
+        function appendElementTd(content){
+            str = '<td class="content_tabs">';
+            str+= content ;
+            str +='</td>' ;
+            return str ;
+        }
+
+        function appendElementTdColored(content){
+            value = ''
+            switch (content) {
+                case "ontime":
+                    value = '<span class="badge badge-warning" style="font-size: 40px;">En cours</span>';
+                    break;
+                case "departed":
+                    value = '<span class="badge badge-info" style="font-size: 40px;">Parti</span>';
+                    break;
+                case "landed":
+                    value = '<span class="badge badge-success" style="font-size: 40px;">A atteri</span>';
+                    break;
+                
+            }
+            str = '<td class="content_tabs">';
+            str+= value ;
+            str +='</td>' ;
+            return str ;
+        }
+        function appendElementTh(content){
+            str = '<td class="content_tabs" scope="row">';
+            str+= content ;
+            str +='</td>' ;
+            return str ;
+        }
+        function appendElementImage(content){
+            str = '<td class="content_tabs" scope="row">';
+            str+= '<img style="width: 50px; height: 50px;" src="/fids/web/'+content+'" alt="'+content+'">';
+            str +='</td>' ;
+            return str ;
+        }
+        function getHour(date){
+            displayDate = new Date(date);
+            var hours = displayDate.getHours();
+            var minutes = displayDate.getMinutes();
+            var seconds = displayDate.getSeconds();
+            //hours = hours % 12;
+            hours = hours ? hours : '00'; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            minutes = minutes ? minutes : '00'; // the hour '0' should be '12'
+            strTime = hours + ':' + minutes ;
+            return strTime ;
+        }
+
     </script>
 {% endblock %}
 </body>

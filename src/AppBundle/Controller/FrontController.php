@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Session\Session;
 /**
@@ -44,6 +45,17 @@ class FrontController extends Controller{
                 )
         );
     }
+
+    public function ajaxFlightInformationAction(Request $request){
+        $typeVol = $request->get('type');
+        $reseau = $request->get('reseau');
+        $programManager = $this->get('program.manager');        
+        $flights = $programManager->getFlightInformation();
+        $dateNow = new \DateTime('now');
+        $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
+        return  new JsonResponse ($flights);
+        //return  new Response ('test');
+    }
     
     /*
      * affichage situation bagage
@@ -68,10 +80,13 @@ class FrontController extends Controller{
     /*
      * affichage check in
      */
-    public function ckeckInByComptoirAction(){
+    public function ckeckInByComptoirAction(Request $request){
         $programManager = $this->get('program.manager');
         //compagnie, num_comptoir, numero_vol, depart time, destination, label <<CHECK IN>>
         //$baggages = $programManager->getFlightInformation();
+        $checkin = $programManager->getCheck($request->query->get('id'));
+        //$checkin = $programManager->getCheckList();
+        
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
         return $this->render("AppBundle:Front:check-in-by.html.twig", 
@@ -79,11 +94,24 @@ class FrontController extends Controller{
                     'title' => 'CHECK IN',
                     'color' => "#508346",
                     'logo' => "check-in-5.png",
-                    'checkIn' => null,
+                    'flight' => $checkin,
                     'dateTime' => $dateNow,
                     'day_name' => $dayName
                 )
         );
+    }
+    
+     public function ajaxCkeckInByComptoirAction(Request $request){
+        $programManager = $this->get('program.manager');
+        //compagnie, num_comptoir, numero_vol, depart time, destination, label <<CHECK IN>>
+        //$baggages = $programManager->getFlightInformation();
+        $id = $request->get('id');
+        $checkin = $programManager->getCheck($id);
+        //$checkin = $programManager->getCheckList();
+        
+        $dateNow = new \DateTime('now');
+        $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
+        return  new JsonResponse ($checkin);
     }
     
     /*
@@ -98,6 +126,63 @@ class FrontController extends Controller{
         return $this->render("AppBundle:Front:checkin_list.html.twig", 
                 array(
                     'title' => 'CHECK IN LISTE',
+                    'color' => "#508346",
+                    'logo' => "check-in-5.png",
+                    'checkInList' => $checkInList,
+                    'dateTime' => $dateNow,
+                    'day_name' => $dayName
+                )
+        );
+    }
+
+    /*
+     * affichage Porte
+     */
+    public function porteByIdAction(Request $request){
+        $programManager = $this->get('program.manager');
+        //compagnie, num_comptoir, numero_vol, depart time, destination, label <<CHECK IN>>
+        //$baggages = $programManager->getFlightInformation();
+        $checkin = $programManager->getPorte($request->query->get('id'));
+        //$checkin = $programManager->getCheckList();
+        
+        $dateNow = new \DateTime('now');
+        $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
+        return $this->render("AppBundle:Front:porte-by.html.twig", 
+                array(
+                    'title' => 'Porte',
+                    'color' => "#508346",
+                    'logo' => "check-in-5.png",
+                    'flight' => $checkin,
+                    'dateTime' => $dateNow,
+                    'day_name' => $dayName
+                )
+        );
+    }
+    
+    public function ajaxPorteByIdAction(Request $request){
+        $programManager = $this->get('program.manager');
+        //compagnie, num_comptoir, numero_vol, depart time, destination, label <<CHECK IN>>
+        //$baggages = $programManager->getFlightInformation();
+        $id = $request->get('id');
+        $checkin = $programManager->getPorte($id);
+        //$checkin = $programManager->getCheckList();
+        
+        $dateNow = new \DateTime('now');
+        $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
+        return  new JsonResponse ($checkin);
+    }
+    /*
+     * Porte list
+     */
+    public function porteListAction(){
+        $programManager = $this->get('program.manager');
+        $checkInList = $programManager->getPorteList();
+        //dump($checkInList) ; die ;
+        $dateNow = new \DateTime('now');
+        $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
+        return $this->render("AppBundle:Front:porte_list.html.twig", 
+                array(
+                    'title' => 'Porte LISTE',
                     'color' => "#508346",
                     'logo' => "check-in-5.png",
                     'checkInList' => $checkInList,

@@ -63,4 +63,84 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
         $result = $sql->getQuery()->getResult();
         return $result;
     }
+
+    /**
+    * Information d'un check
+    */
+
+    public function getCheck( $id){
+        $today_startdatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 00:00:00") );
+        $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
+        $sql = $this->createQueryBuilder('p')
+                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
+                        . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
+                        . "c.nom as compagnie, c.logo,"
+                        . "pc.idComptoir, cpt.numero as num_comptoir")
+                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                ->leftJoin('AppBundle:ProgrammeComptoir', 'pc', 'WITH', "pc.idProgramme = p.id")
+                ->leftJoin('AppBundle:Comptoir', 'cpt', 'WITH', "cpt.id = pc.idComptoir")
+                ->where('p.dateVols >= :today_startdatetime')
+                ->andWhere('p.dateVols <= :today_enddatetime')
+                ->andWhere('p.id = '.$id);
+
+
+        $sql->setParameter('today_startdatetime', $today_startdatetime)
+            ->setParameter('today_enddatetime', $today_enddatetime);
+    
+        $result = $sql->getQuery()->getResult();
+        return $result;
+    }
+
+
+    public function getPorteList(){
+        $today_startdatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 00:00:00") );
+        $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
+        $sql = $this->createQueryBuilder('p')
+                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
+                        . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
+                        . "c.nom as compagnie, c.logo,"
+                        . "pc.idPorte, cpt.numero as num_porte")
+                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                ->leftJoin('AppBundle:ProgrammePorte', 'pc', 'WITH', "pc.idProgramme = p.id")
+                ->leftJoin('AppBundle:Porte', 'cpt', 'WITH', "cpt.id = pc.idPorte")
+                ->where('p.dateVols >= :today_startdatetime')
+                ->andWhere('p.dateVols <= :today_enddatetime');
+
+
+        $sql->setParameter('today_startdatetime', $today_startdatetime)
+            ->setParameter('today_enddatetime', $today_enddatetime);
+    
+        $result = $sql->getQuery()->getResult();
+        return $result;
+    }
+
+    /**
+    * Information d'un check
+    */
+
+    public function getPorte( $id){
+        $today_startdatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 00:00:00") );
+        $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
+        $sql = $this->createQueryBuilder('p')
+                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
+                        . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
+                        . "c.nom as compagnie, c.logo,"
+                        . "pc.idPorte, cpt.numero as num_porte")
+                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                ->leftJoin('AppBundle:ProgrammePorte', 'pc', 'WITH', "pc.idProgramme = p.id")
+                ->leftJoin('AppBundle:Porte', 'cpt', 'WITH', "cpt.id = pc.idPorte")
+                ->where('p.dateVols >= :today_startdatetime')
+                ->andWhere('p.dateVols <= :today_enddatetime')
+                ->andWhere('p.id = '.$id);
+
+
+        $sql->setParameter('today_startdatetime', $today_startdatetime)
+            ->setParameter('today_enddatetime', $today_enddatetime);
+    
+        $result = $sql->getQuery()->getResult();
+        return $result;
+    }
 }

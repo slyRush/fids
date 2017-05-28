@@ -1,11 +1,11 @@
 {% extends 'AppBundle:Front:base_display.html.twig' %}
 {% block mostviewbody %}
     {% if typeDisplayed == "depart" %}
-        <h1 style="color: #fff">DEPART</h1>
+        <h1 align="center" style="color: #fff">DEPART</h1>
     {% else %}
         <h1 align="center" style="color: #fff">ARRIVEE</h1>
     {% endif %}
-    <table class="table table-striped table-inverse">
+    <table class="table table-striped table-inverse flight-info" data-typeDisplayed = "{{typeDisplayed}}" data-reseauDisplayed = "{{reseauDisplayed}}">
         <thead>
         <tr>
             <th class="head_tabs">{{'Numéro de vol' | trans}}</th>
@@ -19,7 +19,7 @@
             <th class="head_tabs">{{'Statut' | trans}}</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="content-info">
         {% for flight in flights %}
             <tr>
                 {% if flight['type'] == typeDisplayed and flight['reseau'] == reseauDisplayed %}

@@ -171,29 +171,6 @@ class ProgrammeAdmin extends Admin
                 )
             )
             ->add('idCompagnie.nom', 'null',  array('label'=>'Compagnie'))
-             ->add('porte','entity', array(
-                            'class' => 'AppBundle\Entity\Compagnie',
-                            'label' => "Porte d'embarquement",
-                            'expanded' => true,
-                            'multiple' => true,
-                            
-                            'query_builder' => function (\Doctrine\ORM\EntityRepository $repository) {
-                                //$id = $this->id($this->getSubject()) ;
-                                $id = 1;
-                                $query = $repository->createQueryBuilder('p')                                        
-                                        ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
-                                        ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
-                                        ->where('p.id = '.$id);
-                                
-                                return $query ;
-                           }
-                         ))  
-
-
-
-
-
-
             ->add('dateVols', 'date',  array('label'=>'Date du vols'))
             ->add('heureDepart', 'time',  array('label'=>'Heure de départ'))
             ->add('heureArrivee', 'time',  array('label'=>"Heure d'arrivée")) 

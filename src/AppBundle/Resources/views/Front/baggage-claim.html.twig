@@ -1,26 +1,30 @@
 {% extends 'AppBundle:Front:base_display.html.twig'%}
 {% block mostviewbody %}
-    <section class="display_content">
-        <div class="departures_flight_info">
-            <div>
-                <div class="flight_col">{{'Compagnie' | trans}}</div>
-                <div class="flight_col">{{'Numéro de vol' | trans}}</div>
-                <div class="flight_col">{{'Destination' | trans}}</div>
-                <div class="flight_col">{{'Statut' | trans}}</div>
-                <div class="flight_col">{{'Remarque' | trans}}</div>
-            </div>
-            <div class="border_raw"></div>
+    <table class="table table-striped table-inverse">
+        <thead>
+            <tr>
+                <th class="head_tabs">{{'Numéro de vol' | trans}}</th>
+                <th class="head_tabs">{{'Compagnie' | trans}}</th>                
+                <th class="head_tabs">{{'Destination' | trans}}</th>
+                <th class="head_tabs">{{'Statut' | trans}}</th>
+                <th class="head_tabs">{{'Baggages' | trans}}</th>
+            </tr>
+        </thead>
+        <tbody>
+
             {% for baggage in baggages %}
-                <div>
-                    {% if baggage['type'] == "arrivee" and baggage['reseau'] == "international" %}
-                        <div class="flight_col">
+                <tr>
+                    {# if baggage['type'] == "arrivee" and baggage['reseau'] == "international" #}
+                    {% if baggage['type'] == "arrivee"  %}
+                        
+                        <th class="content_tabs" scope="row">{{baggage['nom_vol']}}</th>
+                        <td class="content_tabs">
                             {% if baggage['logo'] != null %}
                                 <img style="width: 50px; height: 50px;" src="{{ asset(baggage['logo'])}}">
                             {% endif %}
-                        </div>
-                        <div class="flight_col">{{baggage['nom_vol']}}</div>
-                        <div class="flight_col">{{baggage['destination']}}</div>
-                        <div class="flight_col">
+                        </td>
+                        <td class="content_tabs">{{baggage['destination']}}</td>
+                        <td class="content_tabs">
                             {% set status = baggage['statut'] %}
                             {% if status == "ontime" %}
                                 En cours
@@ -29,20 +33,24 @@
                             {% elseif status == "landed" %} 
                                 A atteri
                             {% endif %}    
-                        </div> 
-                        <div class="flight_col">
+                        </td> 
+                        <td class="content_tabs">
                             {% if baggage['situationBagage'] == "arriving" %}
                                 Arrivées
                             {% elseif baggage['situationBagage'] == "delivered" %}    
                                 Delivrés
                             {% endif %}   
-                        </div>
+                        </td>
                     {% endif %}
-                </div>
+                </tr>
                 {% if baggage['type'] == "depart" and baggage['reseau'] == "international" %}
-                    <div class="border_final_raw"></div>
+                    <tr>
+                        <td colspan="5">{#<div class="border_final_raw"></div>#}</td>
+                    </tr>
                 {% endif %}
             {% endfor%}    
         </div>
-    </section>
+        </tbody>
+            
+    </table>
 {% endblock %}

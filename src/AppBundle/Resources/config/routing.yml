@@ -4,6 +4,9 @@ fids_home_list:
 fids_flight_list:
     path:  /flight-list/{type}/{reseau}
     defaults: { _controller: AppBundle:Front:flightInformation, type : "departure", reseau : "international" }
+fids_flight_list_ajax:
+    path:  /flight-list-ajax/{type}/{reseau}
+    defaults: { _controller: AppBundle:Front:ajaxFlightInformation, type : "departure", reseau : "international" }
 fids_baggage_claim:
     path:  /baggage-claim
     defaults: { _controller: AppBundle:Front:baggageClaim }
@@ -13,3 +16,15 @@ fids_checkin_list:
 fids_checkin_number:
     path:  /check-in/{number}
     defaults: { _controller: AppBundle:Front:ckeckInByComptoir, number : 0 }
+fids_checkin_number_ajax:
+    path:  /check-in-ajax/{number}
+    defaults: { _controller: AppBundle:Front:ajaxCkeckInByComptoir, number : 0 }
+fids_porte_list:
+    path:  /porte-list
+    defaults: { _controller: AppBundle:Front:PorteList }
+fids_porte_number:
+    path:  /porte/{number}
+    defaults: { _controller: AppBundle:Front:porteById, number : 0 }
+fids_porte_number_ajax:
+    path:  /porte-ajax/{number}
+    defaults: { _controller: AppBundle:Front:ajaxPorteById, number : 0 }

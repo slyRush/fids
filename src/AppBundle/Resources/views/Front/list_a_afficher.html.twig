@@ -34,6 +34,10 @@
                         <a id="check_in" href="{{path('fids_checkin_list')}}" title=""><!--i class="iko_international_arrival"></i--><span>{{'Liste Check In'|trans|raw}}</span></a>
                         <span class="badge badge-default badge-pill">0</span>
                     </li>
+                    <li class="list-group-item justify-content-between">
+                        <a id="check_in" href="{{path('fids_porte_list')}}" title=""><!--i class="iko_international_arrival"></i--><span>{{'Liste Porte'|trans|raw}}</span></a>
+                        <span class="badge badge-default badge-pill">0</span>
+                    </li>
                     <div id="check_in_list" style="display: none;">
                         <ul id="list">
                             <a href=""><li id="1">1</li></a>
@@ -64,7 +68,7 @@
             hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
             var strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
-            return date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "  " + strTime;
+            return date.getDate() + " " + setMonthToString((date.getMonth()+1)) + " " + date.getFullYear() + "  " + strTime;
         }
         var timestamp = '<?=time();?>';
         function updateTime(){
@@ -72,6 +76,26 @@
             var realDate = new Date(displayDate);
             $('#time').html(formatDate(realDate));
             timestamp++;
+        }
+
+        function setMonthToString($monthInt){
+            
+            $ret = '';
+            switch ($monthInt){
+                case 1 : $ret = 'Janvier' ; break ;
+                case 2 : $ret = 'Février' ; break ;
+                case 3 : $ret = 'Mars' ; break ;
+                case 4 : $ret = 'Avril' ; break ;
+                case 5 : $ret = 'Mai' ; break ;
+                case 6 : $ret = 'Juin' ; break ;
+                case 7 : $ret = 'Juillet' ; break ;
+                case 8 : $ret = 'Aout' ; break ;
+                case 9 : $ret = 'Septembre' ; break ;
+                case 10 : $ret = 'Octobre' ; break ;
+                case 11 : $ret = 'Novembre' ; break ;
+                case 12 : $ret = 'Décembre' ; break ;
+            }            
+            return $ret;
         }
 
         $(document).ready(function () {
