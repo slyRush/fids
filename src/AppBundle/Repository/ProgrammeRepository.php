@@ -140,7 +140,7 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
                 ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
                 ->leftJoin('AppBundle:ProgrammePorte', 'pc', 'WITH', "pc.idProgramme = p.id")
                 ->leftJoin('AppBundle:Porte', 'cpt', 'WITH', "cpt.id = pc.idPorte")
-                ->where('p.dateVols BETWEEN :today_startdatetime and :today_enddatetime OR p.dateVols BETWEEN :today_enddatetime and :tomorow_enddatetime');
+                ->where('p.dateVols BETWEEN :today_startdatetime and :today_enddatetime OR p.dateVols BETWEEN :today_enddatetime and :tomorow_enddatetime')
                 //->where('p.dateVols >= :today_startdatetime')
                 //->andWhere('p.dateVols <= :today_enddatetime')
                 ->andWhere('p.id = '.$id);
