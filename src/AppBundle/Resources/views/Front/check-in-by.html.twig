@@ -40,13 +40,13 @@
                             {% endif %}
                         </td>
                         <td class="content_tabs">
-                            {% set status = flight[0]['statut'] %}
-                            {% if status == "ontime" %}
-                                <span class="badge badge-warning" style="font-size: 40px;">En cours</span>
+                            {% set status = flight[0]['checkIn'] %}
+                            {% if status == "cloture" %}
+                                <span class="badge badge-warning" style="font-size: 40px;">Enregistrement clôturée</span>
                             {% elseif status == "departed" %}    
                                 <span class="badge badge-info" style="font-size: 40px;">Parti</span>
-                            {% elseif status == "landed" %} 
-                                <span class="badge badge-success" style="font-size: 40px;">A atteri</span>
+                            {% elseif status == "ouvert" %} 
+                                <span class="badge badge-success" style="font-size: 40px;">Enregistrement ouvert</span>
                             {% endif %}    
                         </td>  
                     {% endif %}

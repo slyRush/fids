@@ -122,10 +122,11 @@ class ProgrammeAdmin extends Admin
                         'required' => true,
                         'choices' => array(
                             "" => "",
-                            'waiting' => "En attente",
-                            'departed' => 'Départ',
-                            'ontime' => 'En cours',
-                            'landed' => 'A atteri'
+                            'embarquement' => 'Embarquement',
+                            'decolle' => 'Décollé',
+                            'retarde' => 'Retardé',
+                            'pose' => 'Posé',
+                            'annule' => 'Annulé'
                         ),
                         'data' => ""
                     ))
@@ -134,10 +135,8 @@ class ProgrammeAdmin extends Admin
                         'required' => true,
                         'choices' => array(
                             "" => "",
-                            'opened' => 'Ouvert',
-                            'closed' => 'Fermé',
-                            'delayed' => 'Retardé',
-                            'canceled' => 'Annulé'
+                            'ouvert' => 'Enregistrement ouvert',
+                            'cloture' => 'Enregistrement cloturée'
                         ),
                         'data' => ""
                     ))
@@ -145,8 +144,8 @@ class ProgrammeAdmin extends Admin
                         'label' => 'Situation bagage',
                         'choices' => array(
                             "" => "",
-                            'arriving' => 'Arrivé',
-                            'delivered' => 'Delivré'
+                            'arrive' => 'Arrivé',
+                            'livre' => 'Livrée'
                         ),
                         'data' => ""
                     ))

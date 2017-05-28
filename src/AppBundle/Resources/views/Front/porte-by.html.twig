@@ -41,12 +41,16 @@
                         </td>
                         <td class="content_tabs">
                             {% set status = flight[0]['statut'] %}
-                            {% if status == "ontime" %}
-                                <span class="badge badge-warning" style="font-size: 40px;">En cours</span>
-                            {% elseif status == "departed" %}    
-                                <span class="badge badge-info" style="font-size: 40px;">Parti</span>
-                            {% elseif status == "landed" %} 
-                                <span class="badge badge-success" style="font-size: 40px;">A atteri</span>
+                            {% if status == "annule" %}
+                                <span class="badge badge-warning" style="font-size: 40px;">Annulé</span>
+                            {% elseif status == "decolle" %}
+                                <span class="badge badge-info" style="font-size: 40px;">Décollé</span>
+                            {% elseif status == "embarquement" %}
+                                <span class="badge badge-success" style="font-size: 40px;">Embarquement</span>
+                            {% elseif status == "retarde" %}
+                                <span class="badge badge-success" style="font-size: 40px;">Retardé</span>
+                            {% elseif status == "pose" %}
+                                <span class="badge badge-success" style="font-size: 40px;">Posé</span>
                             {% endif %}    
                         </td>  
                     {% endif %}

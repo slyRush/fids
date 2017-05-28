@@ -44,13 +44,17 @@
                         </td>
                         <td class="content_tabs">
                             {% set status = flight['statut'] %}
-                            {% if status == "ontime" %}
-                                En cours
-                            {% elseif status == "departed" %}    
-                                Parti
-                            {% elseif status == "landed" %} 
-                                A atteri
-                            {% endif %}    
+                            {% if status == "annule" %}
+                                <span class="badge badge-warning" style="font-size: 40px;">Annulé</span>
+                            {% elseif status == "decolle" %}
+                                <span class="badge badge-info" style="font-size: 40px;">Décollé</span>
+                            {% elseif status == "embarquement" %}
+                                <span class="badge badge-success" style="font-size: 40px;">Embarquement</span>
+                            {% elseif status == "retarde" %}
+                                <span class="badge badge-success" style="font-size: 40px;">Retardé</span>
+                            {% elseif status == "pose" %}
+                                <span class="badge badge-success" style="font-size: 40px;">Posé</span>
+                            {% endif %}   
                         </td> 
                         <td class="content_tabs">
                             <a href="{{path('fids_porte_number', {'id' : flight.id})}}" >

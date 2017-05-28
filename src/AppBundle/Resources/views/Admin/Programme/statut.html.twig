@@ -1,11 +1,15 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 {% block field %}
     {% set status = object.statut %}
-    {% if status == "ontime" %}
-        En cours
-    {% elseif status == "departed" %}    
-        Parti
-    {% elseif status == "landed" %} 
-        A atteri
-    {% endif %} 
+    {% if status == "annule" %}
+        Annulé
+    {% elseif status == "decolle" %}
+        Décollé
+    {% elseif status == "embarquement" %}
+        Embarquement
+    {% elseif status == "retarde" %}
+        Retardé
+    {% elseif status == "pose" %}
+        Posé
+    {% endif %}
 {% endblock %}

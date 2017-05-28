@@ -10,6 +10,9 @@ fids_flight_list_ajax:
 fids_baggage_claim:
     path:  /baggage-claim
     defaults: { _controller: AppBundle:Front:baggageClaim }
+fids_baggage_claim_ajax:
+    path:  /baggage-claim-ajax
+    defaults: { _controller: AppBundle:Front:ajaxBaggageClaim }
 fids_checkin_list:
     path:  /check-in-list
     defaults: { _controller: AppBundle:Front:ckeckInList }

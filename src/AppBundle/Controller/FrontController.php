@@ -76,6 +76,15 @@ class FrontController extends Controller{
                 )
         );
     }
+
+    public function ajaxBaggageClaimAction(){
+        $programManager = $this->get('program.manager');
+        $baggages = $programManager->getFlightInformation();
+        $dateNow = new \DateTime('now');
+        $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
+        
+        return  new JsonResponse ($baggages);
+    }
     
     /*
      * affichage check in

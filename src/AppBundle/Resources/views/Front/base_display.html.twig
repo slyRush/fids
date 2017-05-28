@@ -77,10 +77,9 @@
                 setInterval(ajaxCallFlightInformation, ajaxTimeUpdate(2) );
                 break;
             
-            case 'fids_baggage_claim':
-                
-                break;
-            case 'fids_baggage_claim':
+            
+            case 'fids_baggage_claim': 
+            setInterval(ajaxCallBaggageInformation, ajaxTimeUpdate(2) );
                 
                 break;
                 
@@ -88,7 +87,7 @@
                 
                 break; 
             case 'fids_checkin_number':
-                setInterval(ajaxCallCheckInBy, ajaxTimeUpdate(0.25) );
+                setInterval(ajaxCallCheckInBy, ajaxTimeUpdate(2) );
                 break; 
             case 'fids_porte_list':
                 
@@ -110,7 +109,7 @@
         }
 
 
-function ajaxCallCheckInBy() {
+        function ajaxCallCheckInBy() {
             /*var reseauDisplayed = $('.flight-info').attr('data-reseauDisplayed');
             var typeDisplayed = $('.flight-info').attr('data-typeDisplayed');*/
             $.ajax({
@@ -121,12 +120,12 @@ function ajaxCallCheckInBy() {
                     id : '{{app.request.get("id")}}',
                 },
                 success : function (resData){
-                        console.log(resData);
+                        //console.log(resData);
                         $('.content-info').empty();
                         $.each(resData, function (index, value){
                             //if(value.reseau == reseauDisplayed && value.type == typeDisplayed){
-                                console.log(value);
-                                //console.log(reseauDisplayed);
+                                /*console.log(value);
+                                console.log(reseauDisplayed);
                                 console.log(value.checkIn);
                                 console.log(value.compagnie);
                                 console.log(value.depart);
@@ -136,7 +135,7 @@ function ajaxCallCheckInBy() {
                                 console.log(value.statut);
                                 console.log(value.num_vol);
                                 console.log(value.heureArrivee.date);
-                                console.log(value.heureDepart.date);
+                                console.log(value.heureDepart.date);*/
 
                                 //date.getHours()
                                 content = '';
@@ -160,7 +159,7 @@ function ajaxCallCheckInBy() {
 
                                 
 
-                                content+= appendElementTdColored(value.statut)
+                                content+= appendElementTdColoredCheckin(value.checkIn)
                                 
 
                                 $('.content-info').append('<tr>'+content+'</tr>');
@@ -184,7 +183,6 @@ function ajaxCallCheckInBy() {
                     id : '{{app.request.get("id")}}',
                 },
                 success : function (resData){
-                        console.log(resData);
                         $('.content-info').empty();
                         $.each(resData, function (index, value){
                             
@@ -209,7 +207,7 @@ function ajaxCallCheckInBy() {
 
                                 
 
-                                content+= appendElementTdColored(value.statut)
+                                content+= appendElementTdColoredProgramme(value.statut)
                                 
 
                                 $('.content-info').append('<tr>'+content+'</tr>');
@@ -256,7 +254,43 @@ function ajaxCallCheckInBy() {
 
                                 
 
-                                content+= appendElementTdColored(value.statut)
+                                content+= appendElementTdColoredProgramme(value.statut)
+                                
+
+                                $('.content-info').append('<tr>'+content+'</tr>');
+
+
+                            }
+                            
+                        });
+                }
+            });
+
+        }
+
+        function ajaxCallBaggageInformation() {            
+            $.ajax({
+                url : "{{path('fids_baggage_claim_ajax')}}" ,
+                methode: 'post',
+                dataType: 'json',
+                
+                success : function (resData){
+                        $('.content-info').empty();
+                        $.each(resData, function (index, value){
+                            //if(value.type == 'arrivee' && value.reseau == 'international'){
+                            if(value.type == 'arrivee'){
+                               
+                                content = '';
+                                content+= appendElementTh(value.nom_vol)
+                                
+                                content+= appendElementImage(value.logo)
+                                
+                                content+= appendElementTd(value.destination)
+                                
+
+                                
+
+                                content+= appendElementTdColoredBagage(value.situationBagage)
                                 
 
                                 $('.content-info').append('<tr>'+content+'</tr>');
@@ -277,19 +311,61 @@ function ajaxCallCheckInBy() {
             return str ;
         }
 
-        function appendElementTdColored(content){
+        function appendElementTdColoredProgramme(content){
             value = ''
             switch (content) {
-                case "ontime":
-                    value = '<span class="badge badge-warning" style="font-size: 40px;">En cours</span>';
+                case "annule":
+                    value = '<span class="badge badge-warning" style="font-size: 40px;">Annulé</span>';
+                    break;
+                case "decolle":
+                    value = '<span class="badge badge-info" style="font-size: 40px;">Décollé</span>';
+                    break;
+                case "embarquement":
+                    value = '<span class="badge badge-success" style="font-size: 40px;">Embarquement</span>';
+                    break;
+                case "retarde":
+                    value = '<span class="badge badge-info" style="font-size: 40px;">Retardé</span>';
+                    break;
+                case "pose":
+                    value = '<span class="badge badge-success" style="font-size: 40px;">Posé</span>';
+                    break;
+                
+            }
+            str = '<td class="content_tabs">';
+            str+= value ;
+            str +='</td>' ;
+            return str ;
+        }
+
+        function appendElementTdColoredCheckin(content){
+            value = ''
+            switch (content) {
+                case "cloture":
+                    value = '<span class="badge badge-warning" style="font-size: 40px;">Enregistrement clôturée</span>';
                     break;
                 case "departed":
                     value = '<span class="badge badge-info" style="font-size: 40px;">Parti</span>';
                     break;
-                case "landed":
-                    value = '<span class="badge badge-success" style="font-size: 40px;">A atteri</span>';
+                case "ouvert":
+                    value = '<span class="badge badge-success" style="font-size: 40px;">Enregistrement ouvert</span>';
                     break;
                 
+            }
+            str = '<td class="content_tabs">';
+            str+= value ;
+            str +='</td>' ;
+            return str ;
+        }
+
+        function appendElementTdColoredBagage(content){
+            value = ''
+            switch (content) {
+                case "livre":
+                    value = '<span class="badge badge-info" style="font-size: 40px;">Livrés<span>';
+                    break;
+                case "arrive":
+                    value = '<span class="badge badge-info" style="font-size: 40px;">Arrivées<span>';
+                    break;                
             }
             str = '<td class="content_tabs">';
             str+= value ;

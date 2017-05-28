@@ -7,10 +7,9 @@
                 <th class="head_tabs">{{'Compagnie' | trans}}</th>                
                 <th class="head_tabs">{{'Destination' | trans}}</th>
                 <th class="head_tabs">{{'Statut' | trans}}</th>
-                <th class="head_tabs">{{'Baggages' | trans}}</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="content-info">
 
             {% for baggage in baggages %}
                 <tr>
@@ -24,21 +23,12 @@
                             {% endif %}
                         </td>
                         <td class="content_tabs">{{baggage['destination']}}</td>
+                        
                         <td class="content_tabs">
-                            {% set status = baggage['statut'] %}
-                            {% if status == "ontime" %}
-                                En cours
-                            {% elseif status == "departed" %}    
-                                Parti
-                            {% elseif status == "landed" %} 
-                                A atteri
-                            {% endif %}    
-                        </td> 
-                        <td class="content_tabs">
-                            {% if baggage['situationBagage'] == "arriving" %}
-                                Arrivées
-                            {% elseif baggage['situationBagage'] == "delivered" %}    
-                                Delivrés
+                            {% if baggage['situationBagage'] == "arrive" %}
+                               <span class="badge badge-info" style="font-size: 40px;">Arrivées<span>
+                            {% elseif baggage['situationBagage'] == "livre" %}    
+                                <span class="badge badge-info" style="font-size: 40px;">Livrés<span>
                             {% endif %}   
                         </td>
                     {% endif %}

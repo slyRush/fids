@@ -39,7 +39,16 @@ class PorteAdmin extends Admin
                             'international' => 'International'
                         )
                     ))
-                 ->add('isDispo', 'hidden', array('data' => 1))
+                 //->add('isDispo', 'hidden', array('data' => 1))
+                 ->add('isDispo', 'choice', array(
+                        'label' => 'Disponibile',
+                        'required' => true,
+                        'choices' => array(
+                            '1' => "Oui",
+                            '0' => "Non"
+                            
+                        )
+                    ))
         ;
     }
 
