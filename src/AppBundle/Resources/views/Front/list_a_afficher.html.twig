@@ -23,13 +23,15 @@
                         <a href="{{path('fids_flight_list', {'type' : 'arrivee', 'reseau' : 'international'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{"Vols d'arrivée international"|trans|raw}}</span></a>
                         <span class="badge badge-default badge-pill">0</span>
                     </li>
-                    <li> class="list-group-item justify-content-between">
-                        <a href="{{path('fids_flight_list', {'type' : 'depart', 'reseau' : 'national'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{'Vols de départ national'|trans|raw}}</span><a>
+                    <li class="list-group-item justify-content-between">
+                        <a href="{{path('fids_flight_list', {'type' : 'depart', 'reseau' : 'national'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{'Vols de départ national'|trans|raw}}</span></a>
                         <span class="badge badge-default badge-pill">0</span>
                     </li>
                     <li class="list-group-item justify-content-between">
-                        <a href="{{path('fids_flight_list', {'type' : 'arrivee', 'reseau' : 'national'})}}" title=""><!--i class="iko_international_depart"></i--><span>{{"Vols d'arrivée national"|trans|raw}}</span></a>
-                        <span class="badge badge-default badge-pill">1</span>
+                        <a href="{{path('fids_flight_list', {'type' : 'arrivee', 'reseau' : 'national'})}}" title="">
+                            <span>{{"Vols d'arrivée national"|trans|raw}}</span>
+                        </a>
+                        <span class="badge badge-default badge-pill">0</span>
                     </li>
                     <li class="list-group-item justify-content-between">
                         <a id="check_in" href="{{path('fids_checkin_list')}}" title=""><!--i class="iko_international_arrival"></i--><span>{{'Liste Check In'|trans|raw}}</span></a>
