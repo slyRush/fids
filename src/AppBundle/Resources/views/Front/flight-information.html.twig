@@ -24,8 +24,9 @@
             <tr>
                 {% if flight['type'] == typeDisplayed and flight['reseau'] == reseauDisplayed and flight['statut'] != 'termine'%}
                     <th class="content_tabs" scope="row"> {{flight['nom_vol']}} </th>
-                    <td class="content_tabs">{% if flight['logo'] != null %}
-                            <img style="width: 145px; height: 60px;" src="{{ asset(flight['logo'])}}" alt="{{ flight['logo'] }}">
+                    <td class="content_tabs">
+                        {% if flight['logo'] != null %}
+                            <img style="width: 250px; height: 75px;" src="{{ asset(flight['logo'])}}" alt="{{ flight['logo'] }}">
                         {% endif %}
                     </td>
                     <td class="content_tabs">
