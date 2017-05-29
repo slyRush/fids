@@ -38,7 +38,7 @@
             hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
             var strTime = hours + ':' + minutes + ':' + seconds;
-            return date.getDate() + " " + setMonthToString((date.getMonth()+1)) + " " + date.getFullYear() + "  " + strTime;
+            return "<b>" + date.getDate() + " " + setMonthToString((date.getMonth()+1)) + " " + date.getFullYear() + " <br> </b> " + strTime;
         }
         function updateTime(){
             var displayDate = Date(timestamp);
@@ -74,7 +74,7 @@
 
         switch (getCurentRouteName()) {
             case 'fids_flight_list':
-                setInterval(ajaxCallFlightInformation, ajaxTimeUpdate(2) );
+                setInterval(ajaxCallFlightInformation, ajaxTimeUpdate(1) );
                 break;
             
             
@@ -237,7 +237,7 @@
                                 content = '';
                                 content+= appendElementTh(value.nom_vol)
                                 
-                                content+= appendElementImage(value.logo)
+                                content+= appendElementImage(value.logo);
                                 if (value.type == 'depart'){
                                     content+= appendElementTd(value.destination)
 
@@ -380,7 +380,8 @@
         }
         function appendElementImage(content){
             str = '<td class="content_tabs" scope="row">';
-            str+= '<img style="width: 50px; height: 50px;" src="/fids/web/'+content+'" alt="'+content+'">';
+            //str+= '<img style="width: 50px; height: 50px;" src="/fids/web/'+content+'" alt="'+content+'">';
+            str+= '<img style="width: 145px; height: 60px;" src="/'+content+'" alt="'+content+'">';
             str +='</td>' ;
             return str ;
         }
