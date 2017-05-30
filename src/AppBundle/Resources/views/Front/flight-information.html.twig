@@ -1,15 +1,16 @@
 {% extends 'AppBundle:Front:base_display.html.twig' %}
 {% block mostviewbody %}
+    {% set reseau = reseauDisplayed|lower == 'international' ? 'INTERNATIONAUX' : 'nationaux'|upper %}
     {% if typeDisplayed == "depart" %}
-        <h1 align="center" style="color: #fff">DEPART</h1>
+        <h1 align="center" style="color: #fff">DEPART {{ reseau }}</h1>
     {% else %}
-        <h1 align="center" style="color: #fff">ARRIVEE</h1>
+        <h1 align="center" style="color: #fff">ARRIVEE {{ reseau }}</h1>
     {% endif %}
     <table class="table table-striped table-inverse flight-info" data-typeDisplayed = "{{typeDisplayed}}" data-reseauDisplayed = "{{reseauDisplayed}}">
         <thead>
         <tr>
-            <th class="head_tabs">{{'Numéro de vol' | trans}}</th>
             <th class="head_tabs">{{'Compagnie' | trans}}</th>
+            <th class="head_tabs">{{'Numéro de vol' | trans}}</th>
             <th class="head_tabs">{{'Destination' | trans}}</th>
             {% if typeDisplayed == "depart" %}
                 <th class="head_tabs">{{'Heure Départ' | trans}}</th>
@@ -23,12 +24,12 @@
         {% for flight in flights %}
             <tr>
                 {% if flight['type'] == typeDisplayed and flight['reseau'] == reseauDisplayed and flight['statut'] != 'termine'%}
-                    <th class="content_tabs" scope="row"> {{flight['nom_vol']}} </th>
-                    <td class="content_tabs">
+                    <th class="content_tabs" style="padding: 0">
                         {% if flight['logo'] != null %}
                             <img style="width: 250px; height: 75px;" src="{{ asset(flight['logo'])}}" alt="{{ flight['logo'] }}">
                         {% endif %}
-                    </td>
+                    </th>
+                    <td class="content_tabs" scope="row" style="color: #ff9900"> {{flight['nom_vol']}} </td>
                     <td class="content_tabs">
                         {% if typeDisplayed == "depart" %}
                             {{flight['destination']}}
@@ -36,26 +37,74 @@
                             {{flight['depart']}}
                         {% endif %}
                     </td>
-                    <td class="content_tabs">
+                    <td class="content_tabs" style="color: #ff9900">
                         {% if typeDisplayed == "depart" %}
                             {{flight['heureDepart']|date('H:i')}}
                         {% else %}
                             {{flight['heureArrivee']|date('H:i')}}
                         {% endif %}
                     </td>
-                    <td>
-                        {% set status = flight['statut'] %}
+                    {% set status = flight['statut'] %}
+                    {% if typeDisplayed == "depart" %}
                         {% if status == "annule" %}
-                            <span class="badge badge-warning" style="font-size: 40px;">Annulé</span>
+                            {% set colorCell = '#cc0000' %}
                         {% elseif status == "decolle" %}
-                            <span class="badge badge-info" style="font-size: 40px;">Décollé</span>
+                            {% set colorCell = '#009900' %}
+                        {% elseif status == "termine" %}
+                            {% set colorCell = '#009900' %}
                         {% elseif status == "embarquement" %}
-                            <span class="badge badge-success" style="font-size: 40px;">Embarquement</span>
+                            {% set colorCell = '#009900' %}
                         {% elseif status == "retarde" %}
-                            <span class="badge badge-info" style="font-size: 40px;">Retardé</span>
+                            {% set colorCell = '#996600' %}
                         {% elseif status == "pose" %}
-                            <span class="badge badge-success" style="font-size: 40px;">Posé</span>
-                        {% endif %}    
+                            {% set colorCell = '#009900' %}
+                        {% endif %}
+                    {% else %}
+                        {% if status == "annule" %}
+                            {% set colorCell = '#cc0000' %}
+                        {% elseif status == "decolle" %}
+                            {% set colorCell = '#009900' %}
+                        {% elseif status == "termine" %}
+                            {% set colorCell = '#009900' %}
+                        {% elseif status == "embarquement" %}
+                            {% set colorCell = '#009900' %}
+                        {% elseif status == "retarde" %}
+                            {% set colorCell = '#996600' %}
+                        {% elseif status == "pose" %}
+                            {% set colorCell = '#009900' %}
+                        {% endif %}
+                    {% endif %}
+                    <td class="content_tabs" style="padding: 0; background-color: {{ colorCell }}; vertical-align : middle">
+                        {% set status = flight['statut'] %}
+                        {% if typeDisplayed == "depart" %}
+                            {% if status == "annule" %}
+                                {{ 'Annulé'|upper }}
+                            {% elseif status == "decolle" %}
+                                {{ 'Décollé'|upper }}
+                            {% elseif status == "termine" %}
+                                {{ 'Terminé'|upper }}
+                            {% elseif status == "embarquement" %}
+                                {{ 'Embarquement'|upper }}
+                            {% elseif status == "retarde" %}
+                                {{ 'Retardé'|upper }}
+                            {% elseif status == "pose" %}
+                                {{ 'Posé'|upper }}
+                            {% endif %}
+                        {% else %}
+                            {% if status == "annule" %}
+                                {{ 'Annulé'|upper }}
+                            {% elseif status == "decolle" %}
+                                {{ 'Décollé'|upper }}
+                            {% elseif status == "termine" %}
+                                {{ 'Terminé'|upper }}
+                            {% elseif status == "embarquement" %}
+                                {{ 'Embarquement'|upper }}
+                            {% elseif status == "retarde" %}
+                                {{ 'Retardé'|upper }}
+                            {% elseif status == "pose" %}
+                                {{ 'Posé'|upper }}
+                            {% endif %}
+                        {% endif %}
                     </td>
                 {% endif %}
             </tr>

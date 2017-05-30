@@ -13,7 +13,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="logo_">
-                        <img src="{{ asset("app/images/" ~ logo)}}" width="250px" height="75px">
+                        {#<img src="{{ asset("app/images/" ~ logo)}}" width="250px" height="75px">#}
+                        <img src="{{ asset("app/images/ravinala-logo-01.jpg")}}" width="250px" height="75px">
                     </div>
                     <div class="info" style="margin-left: 20px">
                         {#{{title}} #}
@@ -34,11 +35,11 @@
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
             //var ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
+            //hours = hours % 12;
+            //hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
-            var strTime = hours + ':' + minutes + ':' + seconds;
-            return "<b>" + date.getDate() + " " + setMonthToString((date.getMonth()+1)) + " " + date.getFullYear() + " <br> </b> " + strTime;
+            var strTime = hours + ':' + minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
+            return "<b>" + date.getDate() + " " + setMonthToString((date.getMonth()+1)) + " " + date.getFullYear() + " <br> </b> <span style='float: right'> " + strTime + "</span>";
         }
         function updateTime(){
             var displayDate = Date(timestamp);
@@ -79,7 +80,7 @@
             
             
             case 'fids_baggage_claim': 
-            setInterval(ajaxCallBaggageInformation, ajaxTimeUpdate(2) );
+            setInterval(ajaxCallBaggageInformation, ajaxTimeUpdate(1) );
                 
                 break;
                 
@@ -87,13 +88,13 @@
                 
                 break; 
             case 'fids_checkin_number':
-                setInterval(ajaxCallCheckInBy, ajaxTimeUpdate(2) );
+                setInterval(ajaxCallCheckInBy, ajaxTimeUpdate(1) );
                 break; 
             case 'fids_porte_list':
                 
                 break; 
             case 'fids_porte_number':
-                setInterval(ajaxCallPorteBy, ajaxTimeUpdate(2) );
+                setInterval(ajaxCallPorteBy, ajaxTimeUpdate(1) );
                 break; 
 
         }

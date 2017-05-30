@@ -11,8 +11,8 @@
     <div class="container fids" style="width: 100%; height: 100%; background-repeat-x: no-repeat; background-repeat-y: no-repeat;">
         <div class="row">
             <div class="content_list">
-                <h2 style="color: #fff">Bonjour, bienvenue sur l'espace d'administration de FIDS</h2>
-                <p id="time" style="color: #fff"></p>
+                <h2 style="color: #292b2c">Bonjour, bienvenue sur l'espace d'administration de FIDS</h2>
+                <p id="time" style="color: #292b2c"></p>
                 <ul class="list-group">
                     {#<li><a href="{{path('fids_flight_list', {'view' : 'iJ8Huf6levg'})}}" title=""><i class="iko international_depart"></i><span>{{'mesidentifiants'|trans|raw}}</span></a></li>#}
                     <li class="list-group-item justify-content-between">
@@ -67,10 +67,10 @@
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
             //var ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
+            //hours = hours % 12;
+            //hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
-            var strTime = hours + ':' + minutes + ':' + seconds;
+            var strTime = hours + ':' + minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
             return date.getDate() + " " + setMonthToString((date.getMonth()+1)) + " " + date.getFullYear() + "  " + strTime;
         }
         var timestamp = '<?=time();?>';
