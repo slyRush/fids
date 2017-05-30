@@ -76,11 +76,11 @@
 
         switch (getCurentRouteName()) {
             case 'fids_flight_list':
-                setInterval(ajaxCallFlightInformation, ajaxTimeUpdate(1) );
+                setInterval(ajaxCallFlightInformation, ajaxTimeUpdate(2) );
                 break;
             
             
-            case 'fids_baggage_claim': 
+            /*case 'fids_baggage_claim': 
             setInterval(ajaxCallBaggageInformation, ajaxTimeUpdate(1) );
                 
                 break;
@@ -96,7 +96,7 @@
                 break; 
             case 'fids_porte_number':
                 setInterval(ajaxCallPorteBy, ajaxTimeUpdate(1) );
-                break; 
+                break; */
 
         }
         
@@ -111,9 +111,7 @@
         }
 
 
-        function ajaxCallCheckInBy() {
-            /*var reseauDisplayed = $('.flight-info').attr('data-reseauDisplayed');
-            var typeDisplayed = $('.flight-info').attr('data-typeDisplayed');*/
+        /*function ajaxCallCheckInBy() {
             $.ajax({
                 url : "{{path('fids_checkin_number_ajax')}}" ,
                 methode: 'post',
@@ -126,7 +124,7 @@
                         $('.content-info').empty();
                         $.each(resData, function (index, value){
                             //if(value.reseau == reseauDisplayed && value.type == typeDisplayed){
-                                /*console.log(value);
+                                console.log(value);
                                 console.log(reseauDisplayed);
                                 console.log(value.checkIn);
                                 console.log(value.compagnie);
@@ -137,7 +135,7 @@
                                 console.log(value.statut);
                                 console.log(value.num_vol);
                                 console.log(value.heureArrivee.date);
-                                console.log(value.heureDepart.date);*/
+                                console.log(value.heureDepart.date);
 
                                 //date.getHours()
                                 content = '';
@@ -173,9 +171,9 @@
                 }
             });
 
-        }
+        }*/
         
-        function ajaxCallPorteBy() {
+        /*function ajaxCallPorteBy() {
             
             $.ajax({
                 url : "{{path('fids_porte_number_ajax')}}" ,
@@ -218,7 +216,7 @@
                 }
             });
 
-        }
+        }*/
 
         function ajaxCallFlightInformation() {
             var reseauDisplayed = $('.flight-info').attr('data-reseauDisplayed');
@@ -237,26 +235,30 @@
                             if(value.reseau == reseauDisplayed && value.type == typeDisplayed && value.statut !='termine'){
                                
                                 content = '';
-                                content+= appendElementTh(value.nom_vol)
-                                
                                 content+= appendElementImage(value.logo);
+                                content+= appendElementTd(value.nom_vol,true);
+                                
+                                
                                 if (value.type == 'depart'){
-                                    content+= appendElementTd(value.destination)
+                                    content+= appendElementTd(value.destination,false)
 
                                 }else{
-                                    content+= appendElementTd(value.depart)
+                                    content+= appendElementTd(value.depart,false)
                                 }
 
                                 if (value.type == 'depart'){
-                                    content+= appendElementTd(getHour(value.heureDepart.date))
+                                    content+= appendElementTd(getHour(value.heureDepart.date),true)
 
                                 }else{
-                                    content+= appendElementTd(getHour(value.heureArrivee.date))
+                                    content+= appendElementTd(getHour(value.heureArrivee.date),true)
                                 }
 
                                 
 
-                                content+= appendElementTdColoredProgramme(value.statut)
+                                content+= appendElementTdColoredProgramme(value.statut,typeDisplayed);
+                                if(value.reseau == reseauDisplayed && value.type == typeDisplayed && value.statut !='termine'){
+                                    content+= addSeparator();
+                                }
                                 
 
                                 $('.content-info').append('<tr>'+content+'</tr>');
@@ -270,7 +272,7 @@
 
         }
 
-        function ajaxCallBaggageInformation() {            
+        /*function ajaxCallBaggageInformation() {            
             $.ajax({
                 url : "{{path('fids_baggage_claim_ajax')}}" ,
                 methode: 'post',
@@ -305,36 +307,83 @@
             });
 
         }
-
-        function appendElementTd(content){
+*/
+        function appendElementTd(content,whithStyleColor){
             str = '<td class="content_tabs">';
+            if (whithStyleColor){
+                str = '<td class="content_tabs" scope="row" style="color: #ff9900">';
+            }
+            
             str+= content ;
             str +='</td>' ;
             return str ;
         }
 
-        function appendElementTdColoredProgramme(content){
+        function appendElementTdColoredProgramme(content,typeDisplayed){
             value = ''
             switch (content) {
                 case "annule":
-                    value = '<span class="badge badge-warning" style="font-size: 40px;">Annulé</span>';
+                    value = 'Annulé';
                     break;
                 case "decolle":
-                    value = '<span class="badge badge-info" style="font-size: 40px;">Décollé</span>';
+                    value = 'Décollé';
                     break;
                 case "embarquement":
-                    value = '<span class="badge badge-success" style="font-size: 40px;">Embarquement</span>';
+                    value = 'Embarquement';
                     break;
                 case "retarde":
-                    value = '<span class="badge badge-info" style="font-size: 40px;">Retardé</span>';
+                    value = 'Retardé';
                     break;
                 case "pose":
-                    value = '<span class="badge badge-success" style="font-size: 40px;">Posé</span>';
+                    value = 'Posé';
                     break;
                 
             }
-            str = '<td class="content_tabs">';
-            str+= value ;
+            var colorCell ;
+            if (typeDisplayed == 'depart')
+            {
+                switch (content) {
+                case "annule":
+                    colorCell = '#cc0000';
+                    break;
+                case "decolle":
+                    colorCell = '#009900';
+                    break;
+                case "embarquement":
+                    colorCell = '#009900';
+                    break;
+                case "retarde":
+                    colorCell = '#996600';
+                    break;
+                case "pose":
+                    colorCell = '#009900';
+                    break;                
+                }
+
+            } else {
+
+                switch (content) {
+                case "annule":
+                    colorCell = '#cc0000';
+                    break;
+                case "decolle":
+                    colorCell = '#009900';
+                    break;
+                case "embarquement":
+                    colorCell = '#009900';
+                    break;
+                case "retarde":
+                    colorCell = '#996600';
+                    break;
+                case "pose":
+                    colorCell = '#009900';
+                    break;                
+                }
+
+            }
+
+            str = '<td class="content_tabs" style="padding: 0; background-color: '+colorCell+'  ; vertical-align : middle">';
+            str+= value.toUpperCase() ;
             str +='</td>' ;
             return str ;
         }
@@ -381,11 +430,23 @@
             return str ;
         }
         function appendElementImage(content){
-            str = '<td class="content_tabs" scope="row">';
-            //str+= '<img style="width: 50px; height: 50px;" src="/fids/web/'+content+'" alt="'+content+'">';
-            str+= '<img style="width: 145px; height: 60px;" src="/'+content+'" alt="'+content+'">';
-            str +='</td>' ;
+            str = '<th class="content_tabs" style="padding: 0>';
+            //str+= '<img style="width: 250px; height: 75px;" src="/fids/web/'+content+'" alt="'+content+'">';
+            str+= '<img style="width: 250px; height: 75px;" src="/'+content+'" alt="'+content+'">';
+            str +='</th>' ;
+
+            //$('.content_tabs').find('img').attr('src', '/' + content);
             return str ;
+        }
+
+        function addSeparator(){
+            
+            str = '<tr>';
+            str += '<td colspan="5">';
+            //str += '{#<div class="border_final_raw"></div>#}';
+            str += '</td>';
+            str += '</tr>';
+            return str;
         }
         function getHour(date){
             displayDate = new Date(date);

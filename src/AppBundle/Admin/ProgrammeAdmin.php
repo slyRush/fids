@@ -42,7 +42,7 @@ class ProgrammeAdmin extends Admin
                                 return $repository->createQueryBuilder('pos');
                                         //->where('pos.isActive = 1');
                            }, 
-                           'attr' => array('class' => 'span5')))
+                           'attr' => array('class' => 'span5 data-vol-attr' , 'data'=> 'data-vol-attr')))
                     ->add('dateVols', 'date', array(
                             'label' => 'Date du vols','required' => true
                             ,'attr' => array('class' => 'span5'),'data' => new \DateTime()

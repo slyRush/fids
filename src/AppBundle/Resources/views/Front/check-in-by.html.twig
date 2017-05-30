@@ -9,15 +9,15 @@
             {% endif %}#}
         </div>
         <div class="col-md-2">
-            {#<span style="font-size: 35px;">{{flight[0]['num_comptoir']}}</span>#}
-            <span style="font-size: 35px; color: #fff;">20</span>
+            <span style="font-size: 35px; color: #fff;">{{flight[0]['num_comptoir']}}</span>
+            {#<span style="font-size: 35px; color: #fff;">20</span>#}
         </div>
     </div>
     <div class="row" style="width: 100%;">
         <div class="col-md-10">
             <div class="col-md-6">
-                {#<span style="font-size: 35px;">{{flight[0]['nom_vol']}}</span>#}
-                <span style="font-size: 35px;  color: #fff;">TT 235</span>
+                <span style="font-size: 35px; color: #fff;">{{flight[0]['nom_vol']}}</span>#}
+                {#<span style="font-size: 35px;  color: #fff;">TT 235</span>#}
             </div>
             <div class="col-md-6">
                 <div class="row">
@@ -25,12 +25,12 @@
                         <span style="font-size: 25px; color: #fff;">Heure du départ</span>
                     </div>
                     <div class="col-md-6">
-                        <span style="font-size: 25px; color: #fff;"> 12:55
-                            {#{% if flight[0]['type'] == "depart" %}
+                        <span style="font-size: 25px; color: #fff;"> 
+                            {% if flight[0]['type'] == "depart" %}
                                 {{flight[0]['heureDepart']|date('H:i')}}
                             {% else %}
                                 {{flight[0]['heureArrivee']|date('H:i')}}
-                            {% endif %}#}
+                            {% endif %}
                         </span>
                     </div>
                 </div>
@@ -39,7 +39,14 @@
                         <span style="font-size: 25px; color: #fff;">Numéro porte d'embarquement</span>
                     </div>
                     <div class="col-md-6">
-                        <span style="font-size: 35px; color: #fff;">2</span> {# TODO : A dynamiser #}
+                        <span style="font-size: 35px; color: #fff;">
+                                
+                                {% for val in flight %}
+                                    {{val['num_porte']}} {% if (loop.index != flight|length)  %} , {% endif %}
+                                {% endfor %}
+
+                                
+                        </span> {# TODO : A dynamiser #}
                     </div>
                 </div>
             </div>
@@ -47,26 +54,26 @@
         <div class="col-md-2"></div>
     </div>
     <div class="row">
-        <div class="col-md-10"> SYDNEY
-            {#{% if flight[0]['type'] == "depart" %}
+        <div class="col-md-10"> 
+            {% if flight[0]['type'] == "depart" %}
                 {{flight[0]['destination']}}
             {% else %}
                 {{flight[0]['depart']}}
-            {% endif %}#}
+            {% endif %}
         </div>
         <div class="col-md-2"></div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div style="font-size: 40px; color: #fff;"> CHECK-IN
-                {#{% set status = flight[0]['checkIn'] %}
+            <div style="font-size: 40px; color: #fff;">
+                {% set status = flight[0]['checkIn'] %}
                 {% if status == "cloture" %}
                     <span class="badge badge-warning" style="font-size: 40px;">Enregistrement clôturée</span>
                 {% elseif status == "departed" %}
                     <span class="badge badge-info" style="font-size: 40px;">Parti</span>
                 {% elseif status == "ouvert" %}
                     <span class="badge badge-success" style="font-size: 40px;">Enregistrement ouvert</span>
-                {% endif %}#}
+                {% endif %}
             </div>
         </div>
     </div>
