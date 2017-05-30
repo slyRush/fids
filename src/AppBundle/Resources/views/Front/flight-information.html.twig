@@ -1,11 +1,13 @@
 {% extends 'AppBundle:Front:base_display.html.twig' %}
-{% block mostviewbody %}
+{% block titleInfo %}
     {% set reseau = reseauDisplayed|lower == 'international' ? 'INTERNATIONAUX' : 'nationaux'|upper %}
     {% if typeDisplayed == "depart" %}
-        <h1 align="center" style="color: #fff">DEPART {{ reseau }}</h1>
+        <h1 align="center" style="color: #292b2c">DEPART {{ reseau }}</h1>
     {% else %}
-        <h1 align="center" style="color: #fff">ARRIVEE {{ reseau }}</h1>
+        <h1 align="center" style="color: #292b2c">ARRIVEE {{ reseau }}</h1>
     {% endif %}
+{% endblock %}
+{% block mostviewbody %}
     <table class="table table-striped table-inverse flight-info" data-typeDisplayed = "{{typeDisplayed}}" data-reseauDisplayed = "{{reseauDisplayed}}">
         <thead>
         <tr>

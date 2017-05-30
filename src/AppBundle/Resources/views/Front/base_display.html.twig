@@ -9,20 +9,21 @@
 </head>
 <body>
     <div class="container-fluid" style="background-color: #292b2c; height: 100%; margin: 0">
-        <section class="airport_nav" style="background-color: {{color}};">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="logo_">
-                        {#<img src="{{ asset("app/images/" ~ logo)}}" width="250px" height="75px">#}
-                        <img src="{{ asset("app/images/ravinala-logo-01.jpg")}}" width="250px" height="75px">
+        {% block headerbody %}
+            <section class="airport_nav" style="background-color: #fff;">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="logo_">
+                            <img src="{{ asset("app/images/ravinala-logo-01.jpg")}}" width="150px" height="75px">
+                        </div>
                     </div>
-                    <div class="info" style="margin-left: 20px">
-                        {#{{title}} #}
+                    <div class="col-md-6" style="vertical-align: middle;">
+                        {% block titleInfo %}{% endblock %}
                     </div>
+                    <div class="col-md-3 pull-right"><div id="time" style="float: right; color: #292b2c"></div></div>
                 </div>
-                <div class="col-md-6 pull-right"><div id="time" style="float: right; color: #fff"></div></div>
-            </div>
-        </section>
+            </section>
+        {% endblock %}
         {% block mostviewbody %}{% endblock %}
     </div>
 {% block javascripts %}

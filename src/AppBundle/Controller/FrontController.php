@@ -93,7 +93,7 @@ class FrontController extends Controller{
         $programManager = $this->get('program.manager');
         //compagnie, num_comptoir, numero_vol, depart time, destination, label <<CHECK IN>>
         //$baggages = $programManager->getFlightInformation();
-        $checkin = $programManager->getCheck($request->query->get('id'));
+        //$checkin = $programManager->getCheck($request->query->get('id')); TODO : A DECOMMENTER
         //$checkin = $programManager->getCheckList();
         
         $dateNow = new \DateTime('now');
@@ -103,7 +103,7 @@ class FrontController extends Controller{
                     'title' => 'CHECK IN',
                     'color' => "#508346",
                     'logo' => "check-in-5.png",
-                    'flight' => $checkin,
+                    'flight' => '', //$checkin,
                     'dateTime' => $dateNow,
                     'day_name' => $dayName
                 )
