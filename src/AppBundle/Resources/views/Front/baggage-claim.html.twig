@@ -16,28 +16,28 @@
                     {# if baggage['type'] == "arrivee" and baggage['reseau'] == "international" #}
                     {% if baggage['type'] == "arrivee"  %}
                         
-                        <th class="content_tabs" scope="row">{{baggage['nom_vol']}}</th>
+                        <th class="content_tabs" scope="row" style="padding: 0">{{baggage['nom_vol']}}</th>
                         <td class="content_tabs">
                             {% if baggage['logo'] != null %}
                                 <img style="width: 250px; height: 75px;" src="{{ asset(baggage['logo'])}}">
                             {% endif %}
                         </td>
-                        <td class="content_tabs">{{baggage['destination']}}</td>
+                        <td class="content_tabs" scope="row" style="color: #ff9900">{{baggage['destination']}}</td>
                         
-                        <td class="content_tabs">
+                        <td class="content_tabs" style="padding: 0; background-color: #009900; vertical-align : middle">
                             {% if baggage['situationBagage'] == "arrive" %}
-                               <span class="badge badge-info" style="font-size: 40px;">Arrivées<span>
+                               {{'Arrivées'|upper}}
                             {% elseif baggage['situationBagage'] == "livre" %}    
-                                <span class="badge badge-info" style="font-size: 40px;">Livrés<span>
+                                {{'Livrés'|upper}}
                             {% endif %}   
                         </td>
                     {% endif %}
                 </tr>
-                {% if baggage['type'] == "depart" and baggage['reseau'] == "international" %}
+                    {% if baggage['type'] == "arrivee"  %}
                     <tr>
                         <td colspan="5">{#<div class="border_final_raw"></div>#}</td>
                     </tr>
-                {% endif %}
+                    {% endif %}
             {% endfor%}    
         </div>
         </tbody>
