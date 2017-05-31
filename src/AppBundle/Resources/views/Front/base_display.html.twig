@@ -76,7 +76,7 @@
 
         switch (getCurentRouteName()) {
             case 'fids_flight_list':
-                setInterval(ajaxCallFlightInformation, ajaxTimeUpdate(2) );
+                setInterval(ajaxCallFlightInformation, ajaxTimeUpdate(0.2) );
                 break;
             
             
@@ -431,10 +431,18 @@
         }
         function appendElementImage(content){
             str = '<th class="content_tabs" style="padding: 0">';
-            //str+= '<img style="width: 250px; height: 75px;" src="/fids/web/'+content+'" alt="'+content+'">';
-            str+= '<img style="width: 250px; height: 75px;" src="/'+content+'" alt="'+content+'">';
-            str +='</th>' ;
-
+            if(window.location.href.indexOf('app_dev.php') !== -1) {
+                logo = '{{ app.request.getSchemeAndHttpHost() ~'/fids/web/' }}';
+                //str+= '<img style="width: 250px; height: 75px;" src="/fids/web/'+content+'" alt="'+content+'">';
+                //str+= '<img style="width: 250px; height: 75px;" src="/'+content+'" alt="'+content+'">';
+                str+= '<img style="width: 250px; height: 75px;" src="'+logo+'/'+content+'" alt="'+content+'">';
+                str +='</th>' ;
+            } else {
+                //str+= '<img style="width: 250px; height: 75px;" src="/fids/web/'+content+'" alt="'+content+'">';
+                //str+= '<img style="width: 250px; height: 75px;" src="/'+content+'" alt="'+content+'">';
+                str+= '<img style="width: 250px; height: 75px;" src="/'+content+'" alt="'+content+'">';
+                str +='</th>' ;
+            }
             //$('.content_tabs').find('img').attr('src', '/' + content);
             return str ;
         }
