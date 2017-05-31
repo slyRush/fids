@@ -66,6 +66,8 @@ class ProgrammeAdminController extends Controller
             if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
                 $this->admin->checkAccess('create', $object);
 
+
+
                 try {
                     
                     $object = $this->admin->create($object);
@@ -74,6 +76,11 @@ class ProgrammeAdminController extends Controller
                     $uniqId = $request->query->get('uniqid') ;
                     $req = $request->request->get($uniqId) ;
                     $programManager = $this->get('program.manager');
+                    //condition de validation du formulaire
+                    // creer dans le programme manager une validation selon $req
+                    // $id = $req['idVols']
+                    //getTypeVolBy($id)
+                    //Si typevol == 'national' ....
                     if(isset($req['comptoir'])){
                         $programManager->manageRelation($req['comptoir'], $object, "Comptoir") ;
                     }
