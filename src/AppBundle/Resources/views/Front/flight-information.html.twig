@@ -116,11 +116,11 @@
                     </td>
                 {% endif %}
             </tr>
-            {% if flight['type'] == typeDisplayed and flight['reseau'] == reseauDisplayed %}
+            {#{% if flight['type'] == typeDisplayed and flight['reseau'] == reseauDisplayed %}
                 <tr>
-                    <td colspan="5">{#<div class="border_final_raw"></div>#}</td>
+                    <td colspan="5">&#123;&#35;<div class="border_final_raw"></div>&#35;&#125;</td>
                 </tr>
-            {% endif %}
+            {% endif %}#}
         {% endfor%}
         </tbody>
     </table>

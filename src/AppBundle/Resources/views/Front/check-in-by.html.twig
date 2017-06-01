@@ -62,77 +62,19 @@
         </div>
         <div class="row">
             <div class="col-md-12" style="position: absolute; bottom: 0;background-color: #3D414D; padding: 0 0;" align="center">
-                <div style="font-size: 140px;font-weight: bold; color: #fff;" class="status-content">{#Check-in#}
+                <div style="font-size: 100px;font-weight: bold; color: #fff;" class="status-content">{#Check-in#}
                     {% set status = flight[0]['checkIn'] %}
                     {% if status == "cloture" %}
-                        <span class="badge badge-warning" style="font-size: 40px;">Enregistrement clôturée</span>
+                        {{ 'Enregistrement clôturée'|upper }}
                     {% elseif status == "departed" %}
-                        <span class="badge badge-info" style="font-size: 40px;">Parti</span>
+                        {{ 'Parti'|upper }}
                     {% elseif status == "ouvert" %}
-                        <span class="badge badge-success" style="font-size: 40px;">Enregistrement ouvert</span>
+                        {{ 'Enregistrement ouvert'|upper }}
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
-    {#<section class="display_content">
-        <div class="departures">
-             <h1 align="center" style="color: #fff">COMPTOIR</h1>  
-        </div>
-        <table class="table table-striped table-inverse">
-        	<thead>
-	        	<tr>
-	                <th class="head_tabs">{{'Comptoir N°' | trans}}</th>
-	                <th class="head_tabs">{{'Compagnie' | trans}}</th>
-	                <th class="head_tabs">{{'Numéro de vol' | trans}}</th>
-	                <th class="head_tabs">{{'Destination' | trans}}</th>
-	                <th class="head_tabs">{{'Programmé' | trans}}</th>
-	                <th class="head_tabs">{{'Statut' | trans}}</th>
-	            </tr>
-            </thead>
-            <tbody class="content-info">
-            	<tr>
-            	{% if flight[0]['type'] == "depart" %}
-                        <td class="content_tabs">{{flight[0]['num_comptoir']}}</div>
-                        <td class="content_tabs">
-                            {% if flight[0]['logo'] != null %}
-                                <img style="width: 250px; height: 75px;" src="{{ asset(flight[0]['logo'])}}">
-                            {% endif %}
-                        </td>
-                        <td class="content_tabs">{{flight[0]['nom_vol']}}</td>
-                        <td class="content_tabs">
-                            {% if flight[0]['type'] == "depart" %}
-                                {{flight[0]['destination']}}
-                            {% else %}    
-                                {{flight[0]['depart']}}
-                            {% endif %}
-                        </td>
-                        <td class="content_tabs">
-                            {% if flight[0]['type'] == "depart" %}
-                                {{flight[0]['heureDepart']|date('H:i')}}
-                            {% else %}    
-                                {{flight[0]['heureArrivee']|date('H:i')}}
-                            {% endif %}
-                        </td>
-                        <td class="content_tabs">
-                            {% set status = flight[0]['checkIn'] %}
-                            {% if status == "cloture" %}
-                                <span class="badge badge-warning" style="font-size: 40px;">Enregistrement clôturée</span>
-                            {% elseif status == "departed" %}    
-                                <span class="badge badge-info" style="font-size: 40px;">Parti</span>
-                            {% elseif status == "ouvert" %} 
-                                <span class="badge badge-success" style="font-size: 40px;">Enregistrement ouvert</span>
-                            {% endif %}    
-                        </td>  
-                    {% endif %}
-                
-                {% if flight[0]['type'] == "depart" %}
-                    <div class="border_final_raw"></div>
-                {% endif %}
- 
-            	</tr>
-        </table>
-    </section>#}
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset("app/js/jquery-3.2.1.min.js")}}"></script>
@@ -160,78 +102,67 @@
 
         function ajaxCallCheckInBy() {
             $.ajax({
-                url : "{{path('fids_checkin_number_ajax')}}" ,
+                url : "{{path('fids_checkin_number_ajax')}}",
                 methode: 'post',
                 dataType: 'json',
                 data: {
                     id : '{{app.request.get("id")}}',
                 },
                 success : function (resData){
-                        console.log(resData);
-                        //content-info').empty();
-                        var allPorte = ''
-                        $.each(resData, function (index, value){
-                            commat = '';
-                            if(index+1 < resData.length ){
-                                commat = ', ';
-                            }
-                            allPorte += value['num_porte'] +''+commat;
-                                
-                        });
-                            if(resData[0].logo != ''){
-                                $(".image-content").attr("src",resData[0].logo);
-                                
-                            }
-                            $('.num_comptoir-content').text(resData[0].num_comptoir);
-                            $('.nom_vol-content').text(resData[0].nom_vol);
-                            var date = ''
-                            var lieu = ''
-                            if(resData[0].type == "depart"){
-                                date =resData[0].heureDepart.date
-                                lieu = resData[0].destination
+                    //console.log(resData);
+                    //content-info').empty();
+                    var allPorte = ''
+                    $.each(resData, function (index, value){
+                        commat = '';
+                        if(index+1 < resData.length ){
+                            commat = ', ';
+                        }
+                        allPorte += value['num_porte'] +''+commat;
 
-                            }else {
-                                date =resData[0].heureArrivee.date
-                                lieu = resData[0].depart
+                    });
+                    if(resData[0].logo != ''){
+                        $(".image-content").attr("src",resData[0].logo);
 
-                            }
-                            $('.hour-content').text(getHour(date));
-                            $('.num_porte-content').text(allPorte);
-                            $('.lieu-content').text(lieu);
-
-                            var status = resData[0].checkIn;
-                            contentStatus= '';
-                     if (status == "cloture") {
-                        contentStatus = '<span class="badge badge-warning" style="font-size: 40px;">Enregistrement clôturée</span>'
-                     }
-                        
-                    else if (status == "departed") {
-                        contentStatus= '<span class="badge badge-info" style="font-size: 40px;">Parti</span>'
                     }
-                    else if (status == "ouvert") {
-                        contentStatus = '<span class="badge badge-success" style="font-size: 40px;">Enregistrement ouvert</span>'
+                    $('.num_comptoir-content').text(resData[0].num_comptoir);
+                    $('.nom_vol-content').text(resData[0].nom_vol);
+                    var date = ''
+                    var lieu = ''
+                    if(resData[0].type == "depart"){
+                        date =resData[0].heureDepart.date
+                        lieu = resData[0].destination
+
+                    }else {
+                        date =resData[0].heureArrivee.date
+                        lieu = resData[0].depart
+
                     }
+                    $('.hour-content').text(getHour(date));
+                    $('.num_porte-content').text(allPorte);
+                    $('.lieu-content').text(lieu);
 
-
-
-                            $('.status-content').html(contentStatus)
-                            
-                            
-                            
-                                /*console.log(resData[0].checkIn);
-                                console.log(resData[0].compagnie);
-                                console.log(resData[0].depart);
-                                console.log(resData[0].destination);
-                                console.log(resData[0].logo);
-                                console.log(resData[0].type);
-                                console.log(resData[0].statut);
-                                console.log(resData[0].nom_vol);
-                                console.log(resData[0].heureArrivee.date);
-                                console.log(resData[0].heureDepart.date);*/
-                        
+                    var status = resData[0].checkIn;
+                    contentStatus= '';
+                    if (status == "cloture") {
+                        contentStatus = '{{ 'Enregistrement clôturée'|upper }}'
+                    } else if (status == "departed") {
+                        contentStatus= '{{ 'Parti'|upper }}'
+                    } else if (status == "ouvert") {
+                        contentStatus = '{{ 'Enregistrement ouvert'|upper }}'
+                    }
+                    $('.status-content').html(contentStatus)
+                    /*console.log(resData[0].checkIn);
+                    console.log(resData[0].compagnie);
+                    console.log(resData[0].depart);
+                    console.log(resData[0].destination);
+                    console.log(resData[0].logo);
+                    console.log(resData[0].type);
+                    console.log(resData[0].statut);
+                    console.log(resData[0].nom_vol);
+                    console.log(resData[0].heureArrivee.date);
+                    console.log(resData[0].heureDepart.date);*/
                 }
             });
-
         }
     </script>
 {% endblock %}

@@ -234,7 +234,15 @@
                 case "pose":
                     value = 'Posé';
                     break;
-                
+                case "enregistrement":
+                    value = 'Enregistrement';
+                    break;
+                case "atterri":
+                    value = 'Attérri';
+                    break;
+                case "En cours":
+                    value = 'Attérri';
+                    break;
             }
             var colorCell ;
             if (typeDisplayed == 'depart')
@@ -259,9 +267,7 @@
                     colorCell = '#009900';
                     break;                
                 }
-
             } else {
-
                 switch (content) {
                 case "annule":
                     colorCell = '#cc0000';
@@ -279,13 +285,12 @@
                     colorCell = '#996600';
                     break;
                 case "atterri":
-                    colorCell = '#009900';
+                    colorCell = '#cc0000';
                     break;
                 case "en cours":
-                    colorCell = '#009900';
+                    colorCell = '#cc0000';
                     break;
                 }
-
             }
 
             str = '<td class="content_tabs" style="padding: 0; background-color: '+colorCell+'  ; vertical-align : middle">';
@@ -360,7 +365,8 @@
             //str += '{#<div class="border_final_raw"></div>#}';
             str += '</td>';
             str += '</tr>';
-            return str;
+            //return str;
+            return '';
         }
         function getHour(date){
             displayDate = new Date(date);
