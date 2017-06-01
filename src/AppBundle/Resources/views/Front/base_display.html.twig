@@ -171,7 +171,7 @@
                                 
                                 content+= appendElementImage(value.logo)
                                 
-                                content+= appendElementTd(value.destination,true)
+                                content+= appendElementTdBagage(value.destination)
                                 
 
                                 if(value.situationBagage == 'arrive'){
@@ -203,6 +203,14 @@
                 str = '<td class="content_tabs" scope="row" style="color: #ff9900">';
             }
             
+            str+= content ;
+            str +='</td>' ;
+            return str ;
+        }
+
+        function appendElementTdBagage(content){
+            str = '<td class="content_tabs" scope="row">';
+
             str+= content ;
             str +='</td>' ;
             return str ;
