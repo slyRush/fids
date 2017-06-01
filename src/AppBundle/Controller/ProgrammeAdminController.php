@@ -81,32 +81,49 @@ class ProgrammeAdminController extends Controller
                     // $id = $req['idVols']
                     //getTypeVolBy($id)
                     //Si typevol == 'national' ....
-                    if(isset($req['comptoir'])){
-                        $programManager->manageRelation($req['comptoir'], $object, "Comptoir") ;
-                    }
-                    if(isset($req['porte'])){
-                        $programManager->manageRelation($req['porte'], $object, "Porte") ;
-                    }
-                    /* relation programme comptoir et porte */
+                     $subValidation = $programManager->validateOnPost($req);
+                    /*echo '<pre>';
+                    print_r($subValidation);
+                    echo'</pre>';die;*/
+                    if ($subValidation['isValid']){
+                        if(isset($req['comptoir'])){
+                            $programManager->manageRelation($req['comptoir'], $object, "Comptoir") ;
+                        }
+                        if(isset($req['porte'])){
+                            $programManager->manageRelation($req['porte'], $object, "Porte") ;
+                        }
+                        /* relation programme comptoir et porte */
 
-                    //Gestion status terminer
-                    $programManager->manageStatusTerminer($object) ;
-                    
-                    if ($this->isXmlHttpRequest()) {
-                        return $this->renderJson(array(
-                            'result' => 'ok',
-                            'objectId' => $this->admin->getNormalizedIdentifier($object),
-                        ), 200, array());
+                        //Gestion status terminer
+                        $programManager->manageStatusTerminer($object) ;
+
+                        if ($this->isXmlHttpRequest()) {
+                            return $this->renderJson(array(
+                                'result' => 'ok',
+                                'objectId' => $this->admin->getNormalizedIdentifier($object),
+                            ), 200, array());
+                        }
+
+                        $this->addFlash(
+                            'sonata_flash_success',
+                            $this->trans(
+                                'flash_create_success',
+                                array('%name%' => $subValidation['error']),
+                                'SonataAdminBundle'
+                            )
+                        );
+
+                    }else {
+                        $this->addFlash(
+                            'sonata_flash_error',
+                            $this->trans(
+                                'flash_create_error',
+                                array('%name%' => $subValidation['error']),
+                                'SonataAdminBundle'
+                            )
+                        );
                     }
 
-                    $this->addFlash(
-                        'sonata_flash_success',
-                        $this->trans(
-                            'flash_create_success',
-                            array('%name%' => $this->escapeHtml($this->admin->toString($object))),
-                            'SonataAdminBundle'
-                        )
-                    );
 
                     // redirect to edit mode
                     return $this->redirectTo($object);

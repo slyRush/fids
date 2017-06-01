@@ -58,9 +58,12 @@
                             {% set colorCell = '#009900' %}
                         {% elseif status == "retarde" %}
                             {% set colorCell = '#996600' %}
-                        {% elseif status == "pose" %}
+                        {% elseif status == "enregistrment" %}
                             {% set colorCell = '#009900' %}
                         {% endif %}
+                    {% elseif status == "retarde" %}
+                        {% set colorCell = '#cc0000' %}
+                    {% endif %}
                     {% else %}
                         {% if status == "annule" %}
                             {% set colorCell = '#cc0000' %}
@@ -72,9 +75,12 @@
                             {% set colorCell = '#009900' %}
                         {% elseif status == "retarde" %}
                             {% set colorCell = '#996600' %}
-                        {% elseif status == "pose" %}
-                            {% set colorCell = '#009900' %}
+                        {% elseif status == "atterri" %}
+                            {% set colorCell = '#cc0000' %}
+                        {% elseif status == "en cours" %}
+                            {% set colorCell = '#cc0000' %}
                         {% endif %}
+
                     {% endif %}
                     <td class="content_tabs" style="padding: 0; background-color: {{ colorCell }}; vertical-align : middle">
                         {% set status = flight['statut'] %}

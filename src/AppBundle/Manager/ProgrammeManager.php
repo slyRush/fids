@@ -256,9 +256,6 @@ class ProgrammeManager extends Controller {
         $oVol = $volRep->find($idVol);
         $isValid = true;
         $error='';
-        /*echo "<pre>";
-                        print_r($oVol->getType());
-                    echo "</pre>";die;*/
         if ($oVol->getType() == 'arrivee'){
             if(!empty($postData['comptoir'])){
                 $error = 'Le vol de type arrivée ne doit pas cotenir de comptoir';
@@ -276,7 +273,7 @@ class ProgrammeManager extends Controller {
                 $error = 'Le vol de type arrivée ne doit pas cotenir de Situation Bagage';
                 $isValid = false;
             }
-            $statutArrive= array("en cour","atteri","retarde","termine","annule");
+            $statutArrive= array("en cours","atterri","retarde","termine","annule","");
             
                 if (!in_array($postData['statut'], $statutArrive)) {
                     $error = 'Statut de vol  invalide pour le vol de type arrivée';
@@ -285,17 +282,18 @@ class ProgrammeManager extends Controller {
 
         }
         if ($oVol->getType() == 'depart'){
-            $statutDepart= array("enregistrment","embarquement","decolle","termine","retarde","annule");
+            $statutDepart= array("enregistrment","embarquement","decolle","termine","retarde","annule","");
             
                 if (!in_array($postData['statut'], $statutDepart)) {
                     $error = 'Statut de vol  invalide pour le vol de type départ';
                     $isValid = false;
                 }
         }
+        $ret = array('isValid' => $isValid,'error'=>$error );
+        return $ret;
 
     }
-    $ret = array('isValid' => $isValid,'error'=>$error );
-    return $ret;
+
 }
 
 ?>
