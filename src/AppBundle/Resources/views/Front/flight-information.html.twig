@@ -84,35 +84,33 @@
                         {% set status = flight['statut'] %}
                         {% if typeDisplayed == "depart" %}
                             {% if status == "annule" %}
-                                {% set colorCell = '#cc0000' %}
+                                {{ 'Annulé'|upper }}
                             {% elseif status == "decolle" %}
-                                {% set colorCell = '#009900' %}
+                                {{ 'Décollé'|upper }}
                             {% elseif status == "termine" %}
-                                {% set colorCell = '#009900' %}
+                                {{ 'Terminé'|upper }}
                             {% elseif status == "embarquement" %}
-                                {% set colorCell = '#009900' %}
+                                {{ 'Embarquement'|upper }}
                             {% elseif status == "retarde" %}
-                                {% set colorCell = '#996600' %}
+                                {{ 'Retardé'|upper }}
                             {% elseif status == "enregistrment" %}
-                                {% set colorCell = '#009900' %}
-                            {% elseif status == "retarde" %}
-                                {% set colorCell = '#cc0000' %}
+                                {{ 'Enregistrement'|upper }}
                             {% endif %}
                         {% else %}
                             {% if status == "annule" %}
-                                {% set colorCell = '#cc0000' %}
+                                {{ 'Annulé'|upper }}
                             {% elseif status == "decolle" %}
-                                {% set colorCell = '#009900' %}
+                                {{ 'Décollé'|upper }}
                             {% elseif status == "termine" %}
-                                {% set colorCell = '#009900' %}
+                                {{ 'Terminé'|upper }}
                             {% elseif status == "embarquement" %}
-                                {% set colorCell = '#009900' %}
+                                {{ 'Embarquement'|upper }}
                             {% elseif status == "retarde" %}
-                                {% set colorCell = '#996600' %}
+                                {{ 'Retardé'|upper }}
                             {% elseif status == "atterri" %}
-                                {% set colorCell = '#cc0000' %}
+                                {{ 'Attérri'|upper }}
                             {% elseif status == "en cours" %}
-                                {% set colorCell = '#cc0000' %}
+                                {{ 'En cours'|upper }}
                             {% endif %}
                         {% endif %}
                     </td>
