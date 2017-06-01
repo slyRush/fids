@@ -248,6 +248,52 @@ class ProgrammeManager extends Controller {
         $check = $fRepository->getPorte($id) ;
         return $check ;
     }
+
+    public function validateOnPost($postData){
+        $em = $this->getDoctrine()->getEntityManager();
+        $volRep = $em->getRepository('AppBundle:Vols');
+        $idVol = $postData['idVols'];
+        $oVol = $volRep->find($idVol);
+        $isValid = true;
+        $error='';
+        if ($oVol->getType() == 'arrivee'){
+            if(!empty($postData['comptoir'])){
+                $error = 'Le vol de type arrivée ne doit pas cotenir de comptoir';
+                $isValid = false;
+            }
+            if(!empty($postData['porte'])){
+                $error = 'Le vol de type arrivée ne doit pas cotenir de porte';
+                $isValid = false;
+            }
+            if($postData['checkIn']!=''){
+                $error = 'Le vol de type arrivée ne doit pas cotenir de check-In';
+                $isValid = false;
+            }
+            if($postData['situationBagage']!=''){
+                $error = 'Le vol de type arrivée ne doit pas cotenir de Situation Bagage';
+                $isValid = false;
+            }
+            $statutArrive= array("en cours","atterri","retarde","termine","annule","");
+            
+                if (!in_array($postData['statut'], $statutArrive)) {
+                    $error = 'Statut de vol  invalide pour le vol de type arrivée';
+                    $isValid = false;
+                }
+
+        }
+        if ($oVol->getType() == 'depart'){
+            $statutDepart= array("enregistrment","embarquement","decolle","termine","retarde","annule","");
+            
+                if (!in_array($postData['statut'], $statutDepart)) {
+                    $error = 'Statut de vol  invalide pour le vol de type départ';
+                    $isValid = false;
+                }
+        }
+        $ret = array('isValid' => $isValid,'error'=>$error );
+        return $ret;
+
+    }
+
 }
 
 ?>

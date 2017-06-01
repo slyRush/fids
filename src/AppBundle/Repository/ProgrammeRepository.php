@@ -136,16 +136,17 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
         $tomorow_enddatetime = $this->getTomorrowsDate();
         $sql = $this->createQueryBuilder('p')
                 ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
-                        . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
+                        . "v.nom as nom_vol, v.depart as depart, v.destination as destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
-                        . "pc.idPorte, cpt.numero as num_porte")
+                        . "pc.idComptoir, cpt.numero as num_comptoir,"
+                        . "pp.idPorte, por.numero as num_porte")
                 ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
                 ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
-                ->leftJoin('AppBundle:ProgrammePorte', 'pc', 'WITH', "pc.idProgramme = p.id")
-                ->leftJoin('AppBundle:Porte', 'cpt', 'WITH', "cpt.id = pc.idPorte")
+                ->leftJoin('AppBundle:ProgrammeComptoir', 'pc', 'WITH', "pc.idProgramme = p.id")
+                ->leftJoin('AppBundle:Comptoir', 'cpt', 'WITH', "cpt.id = pc.idComptoir")
+                ->leftJoin('AppBundle:ProgrammePorte', 'pp', 'WITH', "pp.idProgramme = p.id")
+                ->leftJoin('AppBundle:Porte', 'por', 'WITH', "por.id = pp.idPorte")
                 ->where('p.dateVols BETWEEN :today_startdatetime and :today_enddatetime OR p.dateVols BETWEEN :today_enddatetime and :tomorow_enddatetime')
-                //->where('p.dateVols >= :today_startdatetime')
-                //->andWhere('p.dateVols <= :today_enddatetime')
                 ->andWhere('p.id = '.$id);
 
 

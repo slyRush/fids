@@ -1,65 +1,154 @@
 {% extends 'AppBundle:Front:base_display.html.twig'%}
+{% block headerbody %}{% endblock %}
 {% block mostviewbody %}
-    <section class="display_content">
-        <div class="departures">
-            <h1 align="center" style="color: #fff">Porte</h1>
+    <div>
+        <div class="row">
+            <div class="col-md-11">                
+                {% if flight[0]['logo'] != null %}
+                    <img class="logo-content"style="width: 100%; height: 100px; padding: 0 0;" src="{{ asset(flight[0]['logo'])}}">
+                {% endif %}
+            </div>
+            <div class="col-md-1">
+                <span style="font-size: 75px; color: #36E8F5; font-weight: bold;" class="num_comptoir-content">{{flight[0]['num_porte']}}</span>
+            </div>
         </div>
-        <table class="table table-striped table-inverse">
-        	<thead>
-	        	<tr>
-	                <th class="head_tabs">{{'Porte N°' | trans}}</th>
-	                <th class="head_tabs">{{'Compagnie' | trans}}</th>
-	                <th class="head_tabs">{{'Numéro de vol' | trans}}</th>
-	                <th class="head_tabs">{{'Destination' | trans}}</th>
-	                <th class="head_tabs">{{'Programmé' | trans}}</th>
-	                <th class="head_tabs">{{'Statut' | trans}}</th>
-	            </tr>
-            </thead>
-            <tbody class="content-info">
-            	<tr>
-            	{% if flight[0]['type'] == "depart" %}
-                        <td class="content_tabs">{{flight[0]['num_porte']}}</div>
-                        <td class="content_tabs">
-                            {% if flight[0]['logo'] != null %}
-                                <img style="width: 250px; height: 75px;" src="{{ asset(flight[0]['logo'])}}">
-                            {% endif %}
-                        </td>
-                        <td class="content_tabs">{{flight[0]['nom_vol']}}</td>
-                        <td class="content_tabs">
-                            {% if flight[0]['type'] == "depart" %}
-                                {{flight[0]['destination']}}
-                            {% else %}    
-                                {{flight[0]['depart']}}
-                            {% endif %}
-                        </td>
-                        <td class="content_tabs">
+        <div class="row" style="width: 100%;">
+            <div class="col-md-11">
+                <div class="col-md-6" style="float: left;">
+                    <div style="font-size: 120px;  color: #36E8F5; font-weight: bold; margin-top: -50px;" align="center">{{flight[0]['nom_vol']}}</div>
+                </div>
+                <div class="col-md-6" style="float: right; vertical-align: middle;" align="right">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div style="font-size: 30px; color: #FBF479;font-weight: bold;" align="left">Heure du départ :</div>
+                        </div>
+                        <div class="col-md-3">
+                        <span style="font-size: 35px; color: #fff;font-weight: bold;" class="hour-content">
                             {% if flight[0]['type'] == "depart" %}
                                 {{flight[0]['heureDepart']|date('H:i')}}
-                            {% else %}    
+                            {% else %}
                                 {{flight[0]['heureArrivee']|date('H:i')}}
                             {% endif %}
-                        </td>
-                        <td class="content_tabs">
-                            {% set status = flight[0]['statut'] %}
-                            {% if status == "annule" %}
-                                <span class="badge badge-warning" style="font-size: 40px;">Annulé</span>
-                            {% elseif status == "decolle" %}
-                                <span class="badge badge-info" style="font-size: 40px;">Décollé</span>
-                            {% elseif status == "embarquement" %}
-                                <span class="badge badge-success" style="font-size: 40px;">Embarquement</span>
-                            {% elseif status == "retarde" %}
-                                <span class="badge badge-success" style="font-size: 40px;">Retardé</span>
-                            {% elseif status == "pose" %}
-                                <span class="badge badge-success" style="font-size: 40px;">Posé</span>
-                            {% endif %}    
-                        </td>  
-                    {% endif %}
-                
+                        </span>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="color: #fff;font-weight: bold; font-size: 150px;vertical-align: middle;" align="center" class="lieu-content">{#Sydney#}
                 {% if flight[0]['type'] == "depart" %}
-                    <div class="border_final_raw"></div>
+                    {{flight[0]['destination']}}
+                {% else %}
+                    {{flight[0]['depart']}}
                 {% endif %}
- 
-            	</tr>
-        </table>
-    </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="position: absolute; bottom: 0;background-color: #3D414D; padding: 0 0;" align="center">
+                <div style="font-size: 140px;font-weight: bold; color: #fff;" class="status-content">
+                    {% set status = flight[0]['checkIn'] %}
+                    {% if status == "cloture" %}
+                        <span class="badge badge-warning" style="font-size: 40px;">Enregistrement clôturée</span>
+                    {% elseif status == "departed" %}
+                        <span class="badge badge-info" style="font-size: 40px;">Parti</span>
+                    {% elseif status == "ouvert" %}
+                        <span class="badge badge-success" style="font-size: 40px;">Enregistrement ouvert</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset("app/js/jquery-3.2.1.min.js")}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('div.container-fluid').css('background-color', '#0A0B10');
+            setInterval(ajaxCallPorteBy, ajaxTimeUpdate(1) );
+        });
+
+        function ajaxTimeUpdate(min){
+            return 1000*60*min ;
+        }
+        function getHour(date){
+            displayDate = new Date(date);
+            var hours = displayDate.getHours();
+            var minutes = displayDate.getMinutes();
+            var seconds = displayDate.getSeconds();
+            //hours = hours % 12;
+            hours = hours ? hours : '00'; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            minutes = minutes ? minutes : '00'; // the hour '0' should be '12'
+            strTime = hours + ':' + minutes ;
+            return strTime ;
+        }
+
+        function ajaxCallPorteBy() {
+            $.ajax({
+                url : "{{path('fids_porte_number_ajax')}}" ,
+                methode: 'post',
+                dataType: 'json',
+                data: {
+                    id : '{{app.request.get("id")}}',
+                },
+                success : function (resData){
+                        //console.log(resData);
+                        
+                            if(resData[0].logo != ''){
+                                $(".image-content").attr("src",resData[0].logo);
+                                
+                            }
+                            $('.num_comptoir-content').text(resData[0].num_porte);
+                            $('.nom_vol-content').text(resData[0].nom_vol);
+                            var date = ''
+                            var lieu = ''
+                            if(resData[0].type == "depart"){
+                                date =resData[0].heureDepart.date
+                                lieu = resData[0].destination
+
+                            }else {
+                                date =resData[0].heureArrivee.date
+                                lieu = resData[0].depart
+
+                            }
+                            $('.hour-content').text(getHour(date));
+                            $('.lieu-content').text(lieu);
+
+                            var status = resData[0].checkIn;
+                            contentStatus= '';
+                     if (status == "cloture") {
+                        contentStatus = '<span class="badge badge-warning" style="font-size: 40px;">Enregistrement clôturée</span>'
+                     }
+                        
+                    else if (status == "departed") {
+                        contentStatus= '<span class="badge badge-info" style="font-size: 40px;">Parti</span>'
+                    }
+                    else if (status == "ouvert") {
+                        contentStatus = '<span class="badge badge-success" style="font-size: 40px;">Enregistrement ouvert</span>'
+                    }
+
+
+
+                            $('.status-content').html(contentStatus)
+                            
+                            
+                            
+                                /*console.log(resData[0].checkIn);
+                                console.log(resData[0].compagnie);
+                                console.log(resData[0].depart);
+                                console.log(resData[0].destination);
+                                console.log(resData[0].logo);
+                                console.log(resData[0].type);
+                                console.log(resData[0].statut);
+                                console.log(resData[0].nom_vol);
+                                console.log(resData[0].heureArrivee.date);
+                                console.log(resData[0].heureDepart.date);*/
+                        
+                }
+            });
+
+        }
+    </script>
 {% endblock %}

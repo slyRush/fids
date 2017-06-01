@@ -125,9 +125,11 @@ class ProgrammeAdmin extends Admin
                             'embarquement' => 'Embarquement',
                             'decolle' => 'Décollé',
                             'retarde' => 'Retardé',
-                            'pose' => 'Posé',
                             'termine' => 'Terminé',
-                            'annule' => 'Annulé'
+                            'annule' => 'Annulé',
+                            'atterri' =>'Atterri',
+                            'en cours' =>'En cours',
+                            'enregistrment' => 'Enregistrment'
                         ),
                         'data' => ""
                     ))

@@ -50,14 +50,18 @@
                                 <span class="badge badge-info" style="font-size: 40px;">Décollé</span>
                             {% elseif status == "embarquement" %}
                                 <span class="badge badge-success" style="font-size: 40px;">Embarquement</span>
+                            {% elseif status == "enregistrment" %}
+                                <span class="badge badge-success" style="font-size: 40px;">Enregistrment</span>
                             {% elseif status == "retarde" %}
                                 <span class="badge badge-success" style="font-size: 40px;">Retardé</span>
                             {% elseif status == "pose" %}
                                 <span class="badge badge-success" style="font-size: 40px;">Posé</span>
-                            {% endif %}   
+                            {% elseif status == "en cours" %}
+                                <span class="badge badge-success" style="font-size: 40px;">En cours</span>
+                            {% endif %}
                         </td> 
                         <td class="content_tabs">
-                            <a href="{{path('fids_porte_number', {'id' : flight.id})}}" >
+                            <a href="{{path('fids_porte_number', {'id' : flight.id, 'idPorte' : flight.idPorte})}}" >
                                     lien
                             </a>
                         </td> 

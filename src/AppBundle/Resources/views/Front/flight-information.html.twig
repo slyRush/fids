@@ -58,9 +58,13 @@
                             {% set colorCell = '#009900' %}
                         {% elseif status == "retarde" %}
                             {% set colorCell = '#996600' %}
-                        {% elseif status == "pose" %}
+                        {% elseif status == "enregistrment" %}
                             {% set colorCell = '#009900' %}
+                        {% elseif status == "retarde" %}
+                            {% set colorCell = '#cc0000' %}
                         {% endif %}
+
+                    {% endif %}
                     {% else %}
                         {% if status == "annule" %}
                             {% set colorCell = '#cc0000' %}
@@ -72,39 +76,46 @@
                             {% set colorCell = '#009900' %}
                         {% elseif status == "retarde" %}
                             {% set colorCell = '#996600' %}
-                        {% elseif status == "pose" %}
-                            {% set colorCell = '#009900' %}
+                        {% elseif status == "atterri" %}
+                            {% set colorCell = '#cc0000' %}
+                        {% elseif status == "en cours" %}
+                            {% set colorCell = '#cc0000' %}
                         {% endif %}
+
                     {% endif %}
                     <td class="content_tabs" style="padding: 0; background-color: {{ colorCell }}; vertical-align : middle">
                         {% set status = flight['statut'] %}
                         {% if typeDisplayed == "depart" %}
                             {% if status == "annule" %}
-                                {{ 'Annulé'|upper }}
+                                {% set colorCell = '#cc0000' %}
                             {% elseif status == "decolle" %}
-                                {{ 'Décollé'|upper }}
+                                {% set colorCell = '#009900' %}
                             {% elseif status == "termine" %}
-                                {{ 'Terminé'|upper }}
+                                {% set colorCell = '#009900' %}
                             {% elseif status == "embarquement" %}
-                                {{ 'Embarquement'|upper }}
+                                {% set colorCell = '#009900' %}
                             {% elseif status == "retarde" %}
-                                {{ 'Retardé'|upper }}
-                            {% elseif status == "pose" %}
-                                {{ 'Posé'|upper }}
+                                {% set colorCell = '#996600' %}
+                            {% elseif status == "enregistrment" %}
+                                {% set colorCell = '#009900' %}
+                            {% elseif status == "retarde" %}
+                                {% set colorCell = '#cc0000' %}
                             {% endif %}
                         {% else %}
                             {% if status == "annule" %}
-                                {{ 'Annulé'|upper }}
+                                {% set colorCell = '#cc0000' %}
                             {% elseif status == "decolle" %}
-                                {{ 'Décollé'|upper }}
+                                {% set colorCell = '#009900' %}
                             {% elseif status == "termine" %}
-                                {{ 'Terminé'|upper }}
+                                {% set colorCell = '#009900' %}
                             {% elseif status == "embarquement" %}
-                                {{ 'Embarquement'|upper }}
+                                {% set colorCell = '#009900' %}
                             {% elseif status == "retarde" %}
-                                {{ 'Retardé'|upper }}
-                            {% elseif status == "pose" %}
-                                {{ 'Posé'|upper }}
+                                {% set colorCell = '#996600' %}
+                            {% elseif status == "atterri" %}
+                                {% set colorCell = '#cc0000' %}
+                            {% elseif status == "en cours" %}
+                                {% set colorCell = '#cc0000' %}
                             {% endif %}
                         {% endif %}
                     </td>
