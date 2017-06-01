@@ -42,7 +42,9 @@
                         <div class="col-md-3">
                         <span style="font-size: 35px; color: #363636;font-weight: bold; background-color: #FBF479; padding: 5px 20px;" class="num_porte-content">{#2,5,8#}
                             {% for val in flight %}
-                                {{val['num_porte']}} {% if (loop.index != flight|length)  %} , {% endif %}
+                                {% if val['num_porte'] != "" and  val['num_porte'] != null %}
+                                    {{val['num_porte']}} {% if (loop.index != flight|length)  %} , {% endif %}
+                                {% endif %}
                             {% endfor %}
                         </span> {# TODO : A dynamiser #}
                         </div>

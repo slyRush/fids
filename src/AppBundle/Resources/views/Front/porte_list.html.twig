@@ -40,6 +40,7 @@
                             {{flight['heureArrivee']|date('H:i')}}
                         {% endif %}
                     </td>
+                    {% set colorCell = '' %}
                     {% set status = flight['statut'] %}
                     {% if status == "annule" %}
                         {% set colorCell = '#cc0000' %}
