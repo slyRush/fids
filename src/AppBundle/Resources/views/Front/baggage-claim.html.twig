@@ -1,6 +1,9 @@
 {% extends 'AppBundle:Front:base_display.html.twig'%}
+{% block titleInfo %}
+    <h1 align="center" style="color: #292b2c">LISTE BAGGAGE</h1>
+{% endblock %}
 {% block mostviewbody %}
-    <table class="table table-striped table-inverse">
+    <table class="table table-striped table-inverse flight-info">
         <thead>
             <tr>
                 <th class="head_tabs">{{'Numéro de vol' | trans}}</th>
@@ -10,19 +13,17 @@
             </tr>
         </thead>
         <tbody class="content-info">
-
             {% for baggage in baggages %}
                 <tr>
                     {# if baggage['type'] == "arrivee" and baggage['reseau'] == "international" #}
                     {% if baggage['type'] == "arrivee"  %}
-                        
-                        <th class="content_tabs" scope="row" style="padding: 0">{{baggage['nom_vol']}}</th>
+                        <th class="content_tabs" scope="row" style="color: #ff9900">{{baggage['nom_vol']}}</th>
                         <td class="content_tabs">
                             {% if baggage['logo'] != null %}
                                 <img style="width: 250px; height: 75px;" src="{{ asset(baggage['logo'])}}">
                             {% endif %}
                         </td>
-                        <td class="content_tabs" scope="row" style="color: #ff9900">{{baggage['destination']}}</td>
+                        <td class="content_tabs" scope="row">{{baggage['destination']}}</td>
                         
                         <td class="content_tabs" style="padding: 0; background-color: #009900; vertical-align : middle">
                             {% if baggage['situationBagage'] == "arrive" %}
@@ -33,14 +34,13 @@
                         </td>
                     {% endif %}
                 </tr>
-                    {% if baggage['type'] == "arrivee"  %}
+                    {#{% if baggage['type'] == "arrivee"  %}
                     <tr>
-                        <td colspan="5">{#<div class="border_final_raw"></div>#}</td>
+                        <td colspan="5">&#123;&#35;<div class="border_final_raw"></div>&#35;&#125;</td>
                     </tr>
-                    {% endif %}
+                    {% endif %}#}
             {% endfor%}    
         </div>
         </tbody>
-            
     </table>
 {% endblock %}

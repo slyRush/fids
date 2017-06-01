@@ -303,13 +303,13 @@
             value = ''
             switch (content) {
                 case "cloture":
-                    value = '<span class="badge badge-warning" style="font-size: 40px;">Enregistrement clôturée</span>';
+                    value = '{{ 'Enregistrement clôturée'|upper }}';
                     break;
                 case "departed":
-                    value = '<span class="badge badge-info" style="font-size: 40px;">Parti</span>';
+                    value = '{{ 'Parti'|upper }}';
                     break;
                 case "ouvert":
-                    value = '<span class="badge badge-success" style="font-size: 40px;">Enregistrement ouvert</span>';
+                    value = '{{ 'Enregistrement ouvert'|upper }}';
                     break;
                 
             }
@@ -323,10 +323,10 @@
             value = ''
             switch (content) {
                 case "livre":
-                    value = '<span class="badge badge-info" style="font-size: 40px;">Livrés<span>';
+                    value = '{{ 'Livrés'|upper }}';
                     break;
                 case "arrive":
-                    value = '<span class="badge badge-info" style="font-size: 40px;">Arrivées<span>';
+                    value = '{{ 'Arrivées'|upper }}';
                     break;                
             }
             str = '<td class="content_tabs">';
