@@ -63,8 +63,6 @@
                         {% elseif status == "retarde" %}
                             {% set colorCell = '#cc0000' %}
                         {% endif %}
-
-                    {% endif %}
                     {% else %}
                         {% if status == "annule" %}
                             {% set colorCell = '#cc0000' %}
@@ -81,7 +79,6 @@
                         {% elseif status == "en cours" %}
                             {% set colorCell = '#cc0000' %}
                         {% endif %}
-
                     {% endif %}
                     <td class="content_tabs" style="padding: 0; background-color: {{ colorCell }}; vertical-align : middle">
                         {% set status = flight['statut'] %}
