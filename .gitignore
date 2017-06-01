@@ -1,4 +1,9 @@
 # Cache and logs (Symfony2)
+/.idea
+/composer.lock
+.idea
+composer.lock
+/app/SymfonyRequirements.php
 /app/cache/*
 /app/logs/*
 !app/cache/.gitkeep
