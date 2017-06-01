@@ -86,3 +86,11 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+\.idea/
+
+app/check\.php
+
+app/SymfonyRequirements\.php
+
+composer\.lock
