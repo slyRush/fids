@@ -129,7 +129,7 @@ class ProgrammeAdmin extends Admin
                             'annule' => 'Annulé',
                             'atterri' =>'Atterri',
                             'en cours' =>'En cours',
-                            'enregistrment' => 'Enregistrment'
+                            'enregistrement' => 'Enregistrement'
                         ),
                         'data' => ""
                     ))
