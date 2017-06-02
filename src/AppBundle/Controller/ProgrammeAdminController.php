@@ -108,7 +108,7 @@ class ProgrammeAdminController extends Controller
                             'sonata_flash_success',
                             $this->trans(
                                 'flash_create_success',
-                                array('%name%' => $this->escapeHtml($this->admin->toString($object))),
+                                array('%name%' => "Programme"),
                                 'SonataAdminBundle'
                             )
                         );
@@ -262,7 +262,7 @@ class ProgrammeAdminController extends Controller
                             'sonata_flash_success',
                             $this->trans(
                                 'flash_edit_success',
-                                array('%name%' => $this->escapeHtml($this->admin->toString($object))),
+                                array('%name%' => "Pogramme"),
                                 'SonataAdminBundle'
                             )
                         );
