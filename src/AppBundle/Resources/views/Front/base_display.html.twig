@@ -8,21 +8,17 @@
   <link href="{{ asset("app/css/bootstrap.min.css")}}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="container-fluid" style="background-color: #292b2c; height: 100%; margin: 0">
+    <div class="container-fluid" style="background-color: #292b2c; height: 100%;">
         {% block headerbody %}
-            <section class="airport_nav" style="background-color: #fff;">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="logo_">
-                            <img src="{{ asset("app/images/ravinala-logo-01.jpg")}}" width="150px" height="75px">
-                        </div>
-                    </div>
-                    <div class="col-md-6" style="vertical-align: middle;">
-                        {% block titleInfo %}{% endblock %}
-                    </div>
-                    <div class="col-md-3 pull-right"><div id="time" style="float: right; color: #292b2c"></div></div>
+            <div class="row" style="background-color: #fff; padding: 15px 15px;">
+                <div class="col-md-3" style="padding: 0 0; margin: 0 0;">
+                    <img src="{{ asset("app/images/ravinala-logo-01.jpg")}}" width="200px" height="100px">
                 </div>
-            </section>
+                <div class="col-md-6" style="padding-top: 25px;">
+                    {% block titleInfo %}{% endblock %}
+                </div>
+                <div class="col-md-3 pull-right"><div id="time" style="float: right; color: #292b2c"></div></div>
+            </div>
         {% endblock %}
         {% block mostviewbody %}{% endblock %}
     </div>
