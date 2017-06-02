@@ -108,7 +108,7 @@ class ProgrammeAdminController extends Controller
                             'sonata_flash_success',
                             $this->trans(
                                 'flash_create_success',
-                                array('%name%' => $subValidation['error']),
+                                array('%name%' => $this->escapeHtml($this->admin->toString($object))),
                                 'SonataAdminBundle'
                             )
                         );
@@ -238,32 +238,46 @@ class ProgrammeAdminController extends Controller
                     $uniqId = $request->query->get('uniqid') ;
                     $req = $request->request->get($uniqId) ;
                     $programManager = $this->get('program.manager');
-                    if(isset($req['comptoir'])){
-                        $programManager->manageRelation($req['comptoir'], $object, "Comptoir") ;
-                    }
-                    if(isset($req['porte'])){
-                        $programManager->manageRelation($req['porte'], $object, "Porte") ;
-                    }
-                    /* relation programme comptoir et porte */
-                    //Gestion status terminer
-                    $programManager->manageStatusTerminer($object) ;
-                    
-                    if ($this->isXmlHttpRequest()) {
-                        return $this->renderJson(array(
-                            'result' => 'ok',
-                            'objectId' => $this->admin->getNormalizedIdentifier($object),
-                            'objectName' => $this->escapeHtml($this->admin->toString($object)),
-                        ), 200, array());
+                    $subValidation = $programManager->validateOnPost($req);
+                    if ($subValidation['isValid']){
+                        if(isset($req['comptoir'])){
+                            $programManager->manageRelation($req['comptoir'], $object, "Comptoir") ;
+                        }
+                        if(isset($req['porte'])){
+                            $programManager->manageRelation($req['porte'], $object, "Porte") ;
+                        }
+                        /* relation programme comptoir et porte */
+                        //Gestion status terminer
+                        $programManager->manageStatusTerminer($object) ;
+
+                        if ($this->isXmlHttpRequest()) {
+                            return $this->renderJson(array(
+                                'result' => 'ok',
+                                'objectId' => $this->admin->getNormalizedIdentifier($object),
+                                'objectName' => $this->escapeHtml($this->admin->toString($object)),
+                            ), 200, array());
+                        }
+
+                        $this->addFlash(
+                            'sonata_flash_success',
+                            $this->trans(
+                                'flash_edit_success',
+                                array('%name%' => $this->escapeHtml($this->admin->toString($object))),
+                                'SonataAdminBundle'
+                            )
+                        );
+
+                    } else {
+                        $this->addFlash(
+                            'sonata_flash_error',
+                            $this->trans(
+                                'flash_create_error',
+                                array('%name%' => $subValidation['error']),
+                                'SonataAdminBundle'
+                            )
+                        );
                     }
 
-                    $this->addFlash(
-                        'sonata_flash_success',
-                        $this->trans(
-                            'flash_edit_success',
-                            array('%name%' => $this->escapeHtml($this->admin->toString($object))),
-                            'SonataAdminBundle'
-                        )
-                    );
 
                     // redirect to edit mode
                     return $this->redirectTo($object);
