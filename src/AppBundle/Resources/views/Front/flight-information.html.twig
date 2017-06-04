@@ -2,9 +2,11 @@
 {% block titleInfo %}
     {% set reseau = reseauDisplayed|lower == 'international' ? 'INTERNATIONAUX' : 'nationaux'|upper %}
     {% if typeDisplayed == "depart" %}
-        <h1 align="center" style="color: #292b2c">DEPART {{ reseau }}</h1>
+    {% set reseauDisplay = reseauDisplayed|lower == 'international' ? 'INTERNATIONAUX' : 'nationaux'|upper %}
+        <h1 align="center" style="color: #292b2c">DEPARTS {{ reseauDisplay }}</h1>
     {% else %}
-        <h1 align="center" style="color: #292b2c">ARRIVEE {{ reseau }}</h1>
+    {% set reseauDisplay = reseauDisplayed|lower == 'international' ? 'INTERNATIONALES' : 'nationales'|upper %}
+        <h1 align="center" style="color: #292b2c">ARRIVEES {{ reseauDisplay }}</h1>
     {% endif %}
 {% endblock %}
 {% block mostviewbody %} <br>
