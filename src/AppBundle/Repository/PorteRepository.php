@@ -10,4 +10,55 @@ namespace AppBundle\Repository;
  */
 class PorteRepository extends \Doctrine\ORM\EntityRepository
 {
+	function getTomorrowsDate($format = 'Y-m-d H:i:s'){
+    
+        $date = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 06:00:00") );
+        $date->add(\DateInterval::createFromDateString('tomorrow'));
+
+        return $date->format($format);
+    }
+
+	public function getPorteList(){
+        
+        $sql = $this->createQueryBuilder('por')
+                ->select("por.id, por.numero as num_porte, por.isDispo, por.type,"
+                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
+                        . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau,"
+                        . "c.nom as compagnie, c.logo"
+                        )
+                ->leftJoin('AppBundle:ProgrammePorte', 'pp', 'WITH', "pp.idPorte = por.id")
+                ->leftJoin('AppBundle:Programme', 'p', 'WITH', "p.id = pp.idProgramme")
+                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                
+               ;               
+    
+        $result = $sql->getQuery()->getResult();
+        return $result;
+    }
+
+    public function getPorte($id){
+        
+        $sql = $this->createQueryBuilder('por')
+                ->select("por.id, por.numero as num_porte, por.isDispo, por.type,"
+                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
+                        . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau,"
+                        . "c.nom as compagnie, c.logo,"
+                        . "pc.idComptoir, cpt.numero as num_comptoir"
+                        )
+                ->leftJoin('AppBundle:ProgrammePorte', 'pp', 'WITH', "pp.idPorte = por.id")
+                ->leftJoin('AppBundle:Programme', 'p', 'WITH', "p.id = pp.idProgramme")
+                ->leftJoin('AppBundle:ProgrammeComptoir', 'pc', 'WITH', "pc.idProgramme = p.id")
+                ->leftJoin('AppBundle:Comptoir', 'cpt', 'WITH', "cpt.id = pc.idComptoir")
+                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+
+                ->where('por.id = '.$id)
+                
+               ;               
+    
+        $result = $sql->getQuery()->getResult();
+        return $result;
+    }
+    
 }

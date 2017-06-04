@@ -30,8 +30,9 @@
                     </div>
                     <div class="col-md-2" align="right">
                         <span style="font-size: 35px; color: #363636;font-weight: bold; background-color: #FBF479; padding: 5px 20px;" class="num_porte-content">{#2,5,8#}
+                            {%set programeId = flight[0]['id_programme']%}
                             {% for val in flight %}
-                                {% if val['num_porte'] != "" and  val['num_porte'] != null %}
+                                {% if val['num_porte'] != "" and  val['num_porte'] != null and val['id_programme'] == programeId %}
                                     {{val['num_porte']}} {% if (loop.index != flight|length)  %} , {% endif %}
                                 {% endif %}
                             {% endfor %}

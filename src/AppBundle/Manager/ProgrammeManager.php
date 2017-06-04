@@ -222,11 +222,23 @@ class ProgrammeManager extends Controller {
         return $checkList ;
     }
 
+    public function getCheckList2(){
+        $fRepository = $this->em->getRepository('AppBundle:Comptoir');
+        $checkList = $fRepository->getCheckList() ;
+        return $checkList ;
+    }
+
     /*
      * return un tableau de tous les informations de vols
      */
     public function getCheck($id){
         $fRepository = $this->em->getRepository('AppBundle:Programme');
+        $check = $fRepository->getCheck($id) ;
+        return $check ;
+    }
+
+    public function getCheck2($id){
+        $fRepository = $this->em->getRepository('AppBundle:Comptoir');
         $check = $fRepository->getCheck($id) ;
         return $check ;
     }
@@ -239,12 +251,23 @@ class ProgrammeManager extends Controller {
         $checkList = $fRepository->getPorteList() ;
         return $checkList ;
     }
+    public function getPorteList2(){
+        $fRepository = $this->em->getRepository('AppBundle:Porte');
+        $checkList = $fRepository->getPorteList() ;
+        return $checkList ;
+    }
 
     /*
      * return un tableau de tous les informations porte
      */
     public function getPorte($id){
         $fRepository = $this->em->getRepository('AppBundle:Programme');
+        $check = $fRepository->getPorte($id) ;
+        return $check ;
+    }
+
+    public function getPorte2($id){
+        $fRepository = $this->em->getRepository('AppBundle:Porte');
         $check = $fRepository->getPorte($id) ;
         return $check ;
     }

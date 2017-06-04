@@ -93,8 +93,8 @@ class FrontController extends Controller{
         $programManager = $this->get('program.manager');
         //compagnie, num_comptoir, numero_vol, depart time, destination, label <<CHECK IN>>
         //$baggages = $programManager->getFlightInformation();
-        $checkin = $programManager->getCheck($request->query->get('id')); //TODO : A DECOMMENTER
-        //$checkin = $programManager->getCheckList();
+        //$checkin = $programManager->getCheck($request->query->get('id')); //TODO : A DECOMMENTER
+        $checkin = $programManager->getCheck2($request->query->get('id'));
         
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
@@ -115,8 +115,8 @@ class FrontController extends Controller{
         //compagnie, num_comptoir, numero_vol, depart time, destination, label <<CHECK IN>>
         //$baggages = $programManager->getFlightInformation();
         $id = $request->get('id');
-        $checkin = $programManager->getCheck($id);
-        //$checkin = $programManager->getCheckList();
+        //$checkin = $programManager->getCheck($id);
+        $checkin = $programManager->getCheck2($id);
         
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
@@ -128,7 +128,7 @@ class FrontController extends Controller{
      */
     public function ckeckInListAction(){
         $programManager = $this->get('program.manager');
-        $checkInList = $programManager->getCheckList();
+        $checkInList = $programManager->getCheckList2();
         //dump($checkInList) ; die ;
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
@@ -151,8 +151,8 @@ class FrontController extends Controller{
         $programManager = $this->get('program.manager');
         //compagnie, num_comptoir, numero_vol, depart time, destination, label <<CHECK IN>>
         //$baggages = $programManager->getFlightInformation();
-        $checkin = $programManager->getPorte($request->query->get('id'));
-        //$checkin = $programManager->getCheckList();
+        //$checkin = $programManager->getPorte($request->query->get('id'));
+        $checkin = $programManager->getPorte2($request->query->get('id'));
         
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
@@ -173,8 +173,8 @@ class FrontController extends Controller{
         //compagnie, num_comptoir, numero_vol, depart time, destination, label <<CHECK IN>>
         //$baggages = $programManager->getFlightInformation();
         $id = $request->get('id');
-        $checkin = $programManager->getPorte($id);
-        //$checkin = $programManager->getCheckList();
+        //$checkin = $programManager->getPorte($id);
+        $checkin = $programManager->getPorte2($id);
         
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
@@ -185,7 +185,7 @@ class FrontController extends Controller{
      */
     public function porteListAction(){
         $programManager = $this->get('program.manager');
-        $checkInList = $programManager->getPorteList();
+        $checkInList = $programManager->getPorteList2();
         //dump($checkInList) ; die ;
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));

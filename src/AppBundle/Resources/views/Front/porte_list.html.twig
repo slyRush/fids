@@ -19,7 +19,7 @@
         {% for flight in checkInList %}
             <tr>
                 {% if flight['type'] == "depart" %}
-                    <td class="content_tabs">{{flight['num_porte']}}</td>
+                    <td class="content_tabs">{{flight['num_porte']}} ({{flight['reseau']}})</td>
                     <td class="content_tabs">
                         {% if flight['logo'] != null %}
                             <img style="width: 250px; height: 75px;" src="{{ asset(flight['logo'])}}">
@@ -79,7 +79,7 @@
                         {% endif %}
                     </td>
                     <td class="content_tabs">
-                        <a href="{{path('fids_porte_number', {'id' : flight.id, 'idPorte' : flight.idPorte})}}" >
+                        <a href="{{path('fids_porte_number', {'id' : flight.id })}}" >
                             Lien
                         </a>
                     </td>
