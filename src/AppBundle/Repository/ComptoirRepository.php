@@ -51,8 +51,8 @@ class ComptoirRepository extends \Doctrine\ORM\EntityRepository
                         . "pp.idPorte, por.numero as num_porte")
                 ->leftJoin('AppBundle:ProgrammeComptoir', 'pc', 'WITH', "pc.idComptoir = cpt.id")
                 ->leftJoin('AppBundle:Programme', 'p', 'WITH', "p.id = pc.idProgramme")
-                ->leftJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
-                ->leftJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
                 ->leftJoin('AppBundle:ProgrammePorte', 'pp', 'WITH', "pp.idProgramme = p.id")
                 ->leftJoin('AppBundle:Porte', 'por', 'WITH', "por.id = pp.idPorte")                
                 ->where('cpt.id = '.$id);
