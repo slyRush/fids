@@ -20,15 +20,15 @@ class ComptoirRepository extends \Doctrine\ORM\EntityRepository
 	public function getCheckList(){
         
         $sql = $this->createQueryBuilder('cpt')
-                ->select("cpt.id, cpt.numero, cpt.isDispo, cpt.type,"
+                ->select("cpt.id, cpt.numero, cpt.isDispo, cpt.type as comptoir_type,"
                 		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
                         . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
                         . "pc.idComptoir, cpt.numero as num_comptoir")
                 ->leftJoin('AppBundle:ProgrammeComptoir', 'pc', 'WITH', "pc.idComptoir = cpt.id")
                 ->leftJoin('AppBundle:Programme', 'p', 'WITH', "p.id = pc.idProgramme")
-                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
-                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                ->leftJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->leftJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
                 
                ;
     
@@ -51,8 +51,8 @@ class ComptoirRepository extends \Doctrine\ORM\EntityRepository
                         . "pp.idPorte, por.numero as num_porte")
                 ->leftJoin('AppBundle:ProgrammeComptoir', 'pc', 'WITH', "pc.idComptoir = cpt.id")
                 ->leftJoin('AppBundle:Programme', 'p', 'WITH', "p.id = pc.idProgramme")
-                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
-                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                ->leftJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->leftJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
                 ->leftJoin('AppBundle:ProgrammePorte', 'pp', 'WITH', "pp.idProgramme = p.id")
                 ->leftJoin('AppBundle:Porte', 'por', 'WITH', "por.id = pp.idPorte")                
                 ->where('cpt.id = '.$id);

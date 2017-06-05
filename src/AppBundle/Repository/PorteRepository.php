@@ -28,8 +28,8 @@ class PorteRepository extends \Doctrine\ORM\EntityRepository
                         )
                 ->leftJoin('AppBundle:ProgrammePorte', 'pp', 'WITH', "pp.idPorte = por.id")
                 ->leftJoin('AppBundle:Programme', 'p', 'WITH', "p.id = pp.idProgramme")
-                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
-                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                ->leftJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->leftJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
                 
                ;               
     
@@ -38,6 +38,9 @@ class PorteRepository extends \Doctrine\ORM\EntityRepository
     }
 
     public function getPorte($id){
+    	$today_startdatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 00:00:00") );
+        $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
+        $tomorow_enddatetime = $this->getTomorrowsDate();
         
         $sql = $this->createQueryBuilder('por')
                 ->select("por.id, por.numero as num_porte, por.isDispo, por.type,"
@@ -50,8 +53,8 @@ class PorteRepository extends \Doctrine\ORM\EntityRepository
                 ->leftJoin('AppBundle:Programme', 'p', 'WITH', "p.id = pp.idProgramme")
                 ->leftJoin('AppBundle:ProgrammeComptoir', 'pc', 'WITH', "pc.idProgramme = p.id")
                 ->leftJoin('AppBundle:Comptoir', 'cpt', 'WITH', "cpt.id = pc.idComptoir")
-                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
-                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                ->leftJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->leftJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
 
                 ->where('por.id = '.$id)
                 
