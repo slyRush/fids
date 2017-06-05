@@ -53,8 +53,8 @@ class PorteRepository extends \Doctrine\ORM\EntityRepository
                 ->leftJoin('AppBundle:Programme', 'p', 'WITH', "p.id = pp.idProgramme")
                 ->leftJoin('AppBundle:ProgrammeComptoir', 'pc', 'WITH', "pc.idProgramme = p.id")
                 ->leftJoin('AppBundle:Comptoir', 'cpt', 'WITH', "cpt.id = pc.idComptoir")
-                ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
-                ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
+                ->leftJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
+                ->leftJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
 
                 ->where('por.id = '.$id)
                 
