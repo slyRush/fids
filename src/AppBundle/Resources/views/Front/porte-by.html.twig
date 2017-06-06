@@ -6,7 +6,7 @@
             <div class="col-md-5">
                 {#<img style="width: 100%; height: 100px; padding: 0 0" src="{{ asset('Images/20170529_090245_dc5d08378d0c6cefce3214f69ff3382a.jpg')}}">#}
                 {% if flight[0]['logo'] != null %}
-                    <img class="logo-content"style="width: 100%; height: 100px; padding: 0 0;" src="{{ asset(flight[0]['logo'])}}">
+                    <img class="logo-content image-content" style="width: 100%; height: 100px; padding: 0 0;" src="{{ asset(flight[0]['logo'])}}">
                 {% endif %}
             </div>
             <div class="col-md-6" style="padding: 25px 25px;">
@@ -106,8 +106,17 @@
                 },
                 success : function (resData){
                     if(resData[0].logo != ''){
-                        $(".image-content").attr("src",resData[0].logo);
+                        var content = resData[0].logo;
+                        if(window.location.href.indexOf('app_dev.php') !== -1) {
+                            logo = '{{ app.request.getSchemeAndHttpHost() ~ '/fids/web/' }}';
+                            $(".image-content").attr("src", logo + '/' + content);
+                            //str+= '<img style="width: 250px; height: 75px;" src="'+logo+'/'+content+'" alt="'+content+'">';
+                        } else {
+                            $(".image-content").attr("src", '/' + content);
+                            //str+= '<img style="width: 250px; height: 75px;" src="/'+content+'" alt="'+content+'">';
+                        }
                     }
+
                     $('.num_comptoir-content').text(resData[0].num_porte);
                     $('.nom_vol-content').text(resData[0].nom_vol);
                     var date = '';
