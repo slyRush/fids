@@ -3,11 +3,11 @@
 {% block mostviewbody %}
     <div class="row">
         <div class="col-md-1" style="vertical-align: middle;" align="center">
-            <span style="font-size: 75px; color: #36E8F5; font-weight: bold;" class="num_comptoir-content">{{flight[0]['num_comptoir']}}{#20#}</span>
+            <span class="num_comptoir-content num_comptoir">{{flight[0]['num_comptoir']}}{#20#}</span>
         </div>
         <div class="col-md-10">
             {% if flight[0]['logo'] != null %}
-                <img class="logo-content image-content" style="width: 100%; height: 100px; padding: 0 0;" src="{{ asset(flight[0]['logo'])}}">
+                <img class="logo-content image-content logo-by" src="{{ asset(flight[0]['logo'])}}">
             {% endif %}
         </div>
         <div class="col-md-1"></div>
@@ -18,10 +18,10 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-6" align="left">
-                    <div style="font-size: 30px; color: #FBF479;font-weight: bold;">Heure du départ :</div>
+                    <div class="label_hour">Heure du départ :</div>
                 </div>
                 <div class="col-md-4" align="left">
-                <span style="font-size: 35px; color: #fff;font-weight: bold;" class="hour-content">{#12:55#}
+                <span class="hour-content hour-content-custom">{#12:55#}
                     {% if flight[0]['type'] == "depart" %}
                         {{flight[0]['heureDepart']|date('H:i')}}
                     {% else %}
@@ -35,12 +35,12 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12" style="float: left;vertical-align: middle;margin-top: 50px;" align="center">
-            <div style="font-size: 150px;  color: #36E8F5; font-weight: bold;">{{flight[0]['nom_vol']}}{#TT 235#}</div>
+        <div class="col-md-12 container-nom_vol" align="center">
+            <div class="nom-vol-custom">{{flight[0]['nom_vol']}}{#TT 235#}</div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12" style="color: #fff;font-weight: bold; font-size: 150px;vertical-align: middle;margin-top: 50px;" align="center" class="lieu-content">
+        <div class="col-md-12 destination-custom" align="center" class="lieu-content">
             {% if flight[0]['type'] == "depart" %}
                 {{flight[0]['destination']}}
             {% else %}
@@ -49,8 +49,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12" style="position: fixed; bottom: 0;background-color: #3D414D; padding: 0 0;" align="center">
-            <div style="font-size: 100px;font-weight: bold; color: #fff;" class="status-content">{#Check-in#}
+        <div class="col-md-12 status-check-custom" align="center">
+            <div class="status-content status-content-custom">{#Check-in#}
                 {% set status = flight[0]['checkIn'] %}
                 {% if status == "cloture" %}
                     {{ 'Enregistrement clôturée'|upper }}
