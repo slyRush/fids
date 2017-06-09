@@ -89,8 +89,13 @@
     <script>
         $(document).ready(function(){
             $('div.container-fluid').css('background-color', '#0A0B10');
-            setInterval(ajaxCallCheckInBy, ajaxTimeUpdate(1) );
+            //setInterval(ajaxCallCheckInBy, ajaxTimeUpdate(1) );
+            setInterval(reload, ajaxTimeUpdate(1) );
         });
+
+        function reload(){
+            window.location.reload(true);
+        }
 
         function ajaxTimeUpdate(min){
             return 1000*60*min ;
