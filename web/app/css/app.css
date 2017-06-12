@@ -136,7 +136,8 @@ div#time{
 /* CHECKING BY + PORTE BY */
 span.num_comptoir {
     font-size: 75px;
-    color: #36E8F5;
+    /*color: #36E8F5;*/
+    color: yellow;
     font-weight: bold;
 }
 
@@ -175,8 +176,9 @@ div.container-nom_vol {
 }
 
 div.nom-vol-custom {
+    color: yellow;
     font-size: 150px;
-    color: #36E8F5;
+    /*color: #36E8F5;*/
     font-weight: bold;
 }
 
@@ -191,7 +193,8 @@ div.destination-custom {
 div.status-check-custom {
     position: fixed;
     bottom: 0;
-    background-color: #3D414D;
+    /*background-color: #3D414D;*/
+    background-color: transparent;
     padding: 0 0;
 }
 
