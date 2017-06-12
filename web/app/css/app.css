@@ -137,7 +137,7 @@ div#time{
 span.num_comptoir {
     font-size: 75px;
     /*color: #36E8F5;*/
-    color: yellow;
+    color: #cc9900;
     font-weight: bold;
 }
 
@@ -150,7 +150,7 @@ img.logo-by {
 div.label_hour {
     font-size: 30px;
     /*color: #FBF479;*/
-    color: yellow;
+    color: #cc9900;
     font-weight: bold;
 }
 
@@ -165,7 +165,7 @@ span.num-porte-custom {
     color: #363636;
     font-weight: bold;
     /*background-color: #FBF479;*/
-    background-color: yellow;
+    background-color: #cc9900;
     padding: 5px 20px;
 }
 
@@ -176,7 +176,7 @@ div.container-nom_vol {
 }
 
 div.nom-vol-custom {
-    color: yellow;
+    color: #cc9900;
     font-size: 150px;
     /*color: #36E8F5;*/
     font-weight: bold;

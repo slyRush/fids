@@ -17,7 +17,7 @@
                 <tr>
                     {# if baggage['type'] == "arrivee" and baggage['reseau'] == "international" #}
                     {% if baggage['type'] == "arrivee"  %}
-                        <th class="content_tabs" scope="row" style="color: yellow">{{baggage['nom_vol']}}</th>
+                        <th class="content_tabs" scope="row" style="color: #cc9900">{{baggage['nom_vol']}}</th>
                         <td class="content_tabs">
                             {% if baggage['logo'] != null %}
                                 <img style="width: 250px; height: 75px;" src="{{ asset(baggage['logo'])}}">
