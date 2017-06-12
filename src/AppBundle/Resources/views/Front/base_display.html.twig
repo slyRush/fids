@@ -20,7 +20,9 @@
                 <div class="col-md-3 pull-right"><div id="time" style="float: right; color: #292b2c"></div></div>
             </div>
         {% endblock %}
-        {% block mostviewbody %}{% endblock %}
+        <div style="background-color: #0d12c3; height: 100%;">
+            {% block mostviewbody %}{% endblock %}
+        </div>
     </div>
 {% block javascripts %}
     <script src="{{ asset("app/js/jquery-3.2.1.min.js")}}"></script>

@@ -7,7 +7,8 @@ html, body{
 .fids{
     /*background-image: url("../../app/images/plane.jpg");*/
     background-image: url("../../app/images/ravinala-logo-01.jpg");
-    background-color: #292b2c;
+    /*background-color: #292b2c;*/
+    background-color: #0d12c3;
     /*width: 100%;
     height: 100%;*/
     -webkit-background-size: cover; /* pour anciens Chrome et Safari */
@@ -147,7 +148,8 @@ img.logo-by {
 
 div.label_hour {
     font-size: 30px;
-    color: #FBF479;
+    /*color: #FBF479;*/
+    color: yellow;
     font-weight: bold;
 }
 
@@ -161,7 +163,8 @@ span.num-porte-custom {
     font-size: 35px;
     color: #363636;
     font-weight: bold;
-    background-color: #FBF479;
+    /*background-color: #FBF479;*/
+    background-color: yellow;
     padding: 5px 20px;
 }
 
