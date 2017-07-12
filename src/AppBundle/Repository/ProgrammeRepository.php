@@ -18,7 +18,19 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
 
         return $date->format($format);
     }
-    public function getProgrammeToday(){
+    public function getProgrammeToday($typeVol){
+        $orderby = 'p.id';
+        $order = 'DESC';
+        if ($typeVol != null){
+            if($typeVol == 'depart'){
+                $orderby = 'p.heureDepart';
+                $order = 'ASC';
+            } else {
+                $orderby = 'p.heureArrivee';
+                $order = 'ASC';
+            }
+        }
+
         $today_startdatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 00:00:00") );
         $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
         $tomorow_enddatetime = $this->getTomorrowsDate();
@@ -30,7 +42,9 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
                 ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
                 /*->where('p.dateVols >= :today_startdatetime')
                 ->andWhere('p.dateVols <= :today_enddatetime');*/
-                ->where('p.dateVols BETWEEN :today_startdatetime and :today_enddatetime OR p.dateVols BETWEEN :today_enddatetime and :tomorow_enddatetime');
+                ->where('p.dateVols BETWEEN :today_startdatetime and :today_enddatetime OR p.dateVols BETWEEN :today_enddatetime and :tomorow_enddatetime')
+                ->orderBy($orderby,$order);
+
 
 
         $sql->setParameter('today_startdatetime', $today_startdatetime)

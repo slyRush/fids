@@ -207,9 +207,9 @@ class ProgrammeManager extends Controller {
     /*
      * return un tableau de tous les informations de vols
      */
-    public function getFlightInformation(){
+    public function getFlightInformation($typeVol){
         $fRepository = $this->em->getRepository('AppBundle:Programme');
-        $flight = $fRepository->getProgrammeToday() ;
+        $flight = $fRepository->getProgrammeToday($typeVol) ;
         return $flight ;
     }
     

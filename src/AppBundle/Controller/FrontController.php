@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class FrontController extends Controller{
     public function listAction(){
         $programManager = $this->get('program.manager');
-        $flights = $programManager->getFlightInformation();
+        $flights = $programManager->getFlightInformation(null);
         return $this->render("AppBundle:Front:list_a_afficher.html.twig", 
                 array('flights' => $flights)
         );
@@ -29,7 +29,7 @@ class FrontController extends Controller{
         $typeVol = $request->get('type');
         $reseau = $request->get('reseau');
         $programManager = $this->get('program.manager');        
-        $flights = $programManager->getFlightInformation();
+        $flights = $programManager->getFlightInformation($typeVol);
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
         return $this->render("AppBundle:Front:flight-information.html.twig", 
@@ -50,7 +50,7 @@ class FrontController extends Controller{
         $typeVol = $request->get('type');
         $reseau = $request->get('reseau');
         $programManager = $this->get('program.manager');        
-        $flights = $programManager->getFlightInformation();
+        $flights = $programManager->getFlightInformation($typeVol);
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
         return  new JsonResponse ($flights);
@@ -62,7 +62,7 @@ class FrontController extends Controller{
      */
     public function baggageClaimAction(){
         $programManager = $this->get('program.manager');
-        $baggages = $programManager->getFlightInformation();
+        $baggages = $programManager->getFlightInformation(null);
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
         return $this->render("AppBundle:Front:baggage-claim.html.twig", 
@@ -79,7 +79,7 @@ class FrontController extends Controller{
 
     public function ajaxBaggageClaimAction(){
         $programManager = $this->get('program.manager');
-        $baggages = $programManager->getFlightInformation();
+        $baggages = $programManager->getFlightInformation(null);
         $dateNow = new \DateTime('now');
         $dayName = date('l', strtotime($dateNow->format("Y-m-d")));
         
