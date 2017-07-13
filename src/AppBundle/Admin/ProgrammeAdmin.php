@@ -113,6 +113,17 @@ class ProgrammeAdmin extends Admin
                                 return $query ;
                            }
                          ))                
+                    ->add('classe', 'choice', array(
+                        'label' => 'Classe',
+                        'required' => false,
+                        'choices' => array(
+                            "" => "",
+                            'economique' => 'Economique',
+                            'affaire' => 'Affaire',
+                            'premiere classe' => 'Première classe'
+                        ),
+                        'data' => ""
+                    ))
                     ->end()               
                 ->end()
                 ->tab('Statut')  

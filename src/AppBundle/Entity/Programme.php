@@ -110,6 +110,13 @@ class Programme
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProgrammePorte", mappedBy="programme",cascade={"remove"})
      */
     private $programme_portes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="classe", type="string", length=255, nullable=true)
+     */
+    private $classe;
     
 
     /**
@@ -541,5 +548,29 @@ class Programme
     public function getProgrammePortes()
     {
         return $this->programme_portes;
+    }
+
+    /**
+     * Set classe
+     *
+     * @param string $classe
+     *
+     * @return Programme
+     */
+    public function setClasse($classe)
+    {
+        $this->classe = $classe;
+
+        return $this;
+    }
+
+    /**
+     * Get classe
+     *
+     * @return string
+     */
+    public function getClasse()
+    {
+        return $this->classe;
     }
 }
