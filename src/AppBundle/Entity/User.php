@@ -29,7 +29,7 @@ class User extends BaseUser
      */
     private $isActive;
 
-    
+
     /**
      * @var integer
      *
@@ -42,14 +42,14 @@ class User extends BaseUser
      * @ORM\JoinColumn(name="id_role", referencedColumnName="id")
      */
     protected $role;
-    
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="datetime", nullable=true)
      */
     private $dateCreation;
-    
+
 
     /**
      * Set isActive
