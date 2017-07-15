@@ -21,7 +21,7 @@ class ComptoirRepository extends \Doctrine\ORM\EntityRepository
         
         $sql = $this->createQueryBuilder('cpt')
                 ->select("cpt.id, cpt.numero, cpt.isDispo, cpt.type as comptoir_type,"
-                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
+                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,p.classe,"
                         . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
                         . "pc.idComptoir, cpt.numero as num_comptoir")
@@ -44,7 +44,7 @@ class ComptoirRepository extends \Doctrine\ORM\EntityRepository
         
         $sql = $this->createQueryBuilder('cpt')
                 ->select("cpt.id, cpt.numero, cpt.isDispo, cpt.type,"
-                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
+                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,p.classe,"
                         . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
                         . "pc.idComptoir, cpt.numero as num_comptoir,"

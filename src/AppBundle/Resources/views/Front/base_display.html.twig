@@ -12,7 +12,7 @@
         {% block headerbody %}
             <div class="row" style="background-color: #fff; padding: 15px 15px;">
                 <div class="col-md-3" style="padding: 0 0; margin: 0 0;">
-                    <img src="{{ asset("app/images/ravinala-logo-01.jpg")}}" width="156px" height="110px">
+                    <img src="{{ asset("app/images/ravinala-logo-01.jpg")}}" width="300px" height="125px">
                 </div>
                 <div class="col-md-6" style="padding-top: 25px;">
                     {% block titleInfo %}{% endblock %}
@@ -38,7 +38,7 @@
             //hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
             var strTime = hours + ':' + minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
-            return "<b>" + date.getDate() + " " + setMonthToString((date.getMonth()+1)) + " " + date.getFullYear() + " <br> </b> <span style='float: right'> " + strTime + "</span>";
+            return "<span style='font-size: 2.5rem;'><b>" + date.getDate() + " " + setMonthToString((date.getMonth()+1)) + " " + date.getFullYear() + "</span> <br> </b> <span style='float: right; font-size: 2.5rem;'> " + strTime + "</span>";
         }
         function updateTime(){
             var displayDate = Date(timestamp);
@@ -198,7 +198,7 @@
         function appendElementTd(content,whithStyleColor){
             str = '<td class="content_tabs">';
             if (whithStyleColor){
-                str = '<td class="content_tabs" scope="row" style="color: #cc9900">';
+                str = '<td class="content_tabs" scope="row" style="color: #ffbf00">';
             }
             
             str+= content ;

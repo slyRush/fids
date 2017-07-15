@@ -40,12 +40,25 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12 destination-custom" align="center" class="lieu-content">
+        <div class="col-md-12 destination-custom lieu-content" align="center">
             {% if flight[0]['type'] == "depart" %}
                 {{flight[0]['destination']}}
             {% else %}
                 {{flight[0]['depart']}}
             {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 classe-content" align="center">
+            {% set classe = flight[0]['classe'] %}
+                {% if classe == "economique" %}
+                    {{ 'économique'|upper }}
+                {% elseif classe == "affaire" %}
+                    {{ 'affaire'|upper }}
+                {% elseif classe == "premiere classe" %}
+                    {{ 'première classe'|upper }}
+                {% endif %} 
+
         </div>
     </div>
     <div class="row">
