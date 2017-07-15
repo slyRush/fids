@@ -135,33 +135,38 @@ div#time{
 
 /* CHECKING BY + PORTE BY */
 span.num_comptoir {
-    font-size: 75px;
+    font-size: 150px;
     /*color: #36E8F5;*/
     color: #cc9900;
     font-weight: bold;
 }
 
 img.logo-by {
-    width: 50%;
-    height: 120px;
+    width: 90%;
+    height: 200px;
     padding: 0 0;
 }
 
 div.label_hour {
-    font-size: 30px;
+    font-size: 75px;
     /*color: #FBF479;*/
     color: #cc9900;
     font-weight: bold;
 }
 
 span.hour-content-custom {
-    font-size: 35px;
+    font-size: 80px;
     color: #fff;
     font-weight: bold;
 }
 
+div.classe-content {
+    font-size: 120px;
+    color: #cc9900;
+}
+
 span.num-porte-custom {
-    font-size: 35px;
+    font-size: 80px;
     color: #363636;
     font-weight: bold;
     /*background-color: #FBF479;*/
