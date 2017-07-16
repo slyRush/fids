@@ -135,22 +135,22 @@ div#time{
 
 /* CHECKING BY + PORTE BY */
 span.num_comptoir {
-    font-size: 150px;
+    font-size: 200px;
     /*color: #36E8F5;*/
-    color: #cc9900;
+    color: #FFFF00;
     font-weight: bold;
 }
 
 img.logo-by {
     width: 90%;
-    height: 200px;
+    height: 300px;
     padding: 0 0;
 }
 
 div.label_hour {
     font-size: 75px;
     /*color: #FBF479;*/
-    color: #cc9900;
+    color: #FFFF00;
     font-weight: bold;
 }
 
@@ -162,7 +162,7 @@ span.hour-content-custom {
 
 div.classe-content {
     font-size: 120px;
-    color: #cc9900;
+    color: #FFFF00;
 }
 
 span.num-porte-custom {
@@ -170,7 +170,7 @@ span.num-porte-custom {
     color: #363636;
     font-weight: bold;
     /*background-color: #FBF479;*/
-    background-color: #cc9900;
+    background-color: #FFFF00;
     padding: 5px 20px;
 }
 
@@ -181,7 +181,7 @@ div.container-nom_vol {
 }
 
 div.nom-vol-custom {
-    color: #cc9900;
+    color: #FFFF00;
     font-size: 150px;
     /*color: #36E8F5;*/
     font-weight: bold;
