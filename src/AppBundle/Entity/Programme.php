@@ -111,12 +111,7 @@ class Programme
      */
     private $programme_portes;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="classe", type="string", length=255, nullable=true)
-     */
-    private $classe;
+
     
 
     /**
@@ -550,27 +545,5 @@ class Programme
         return $this->programme_portes;
     }
 
-    /**
-     * Set classe
-     *
-     * @param string $classe
-     *
-     * @return Programme
-     */
-    public function setClasse($classe)
-    {
-        $this->classe = $classe;
 
-        return $this;
-    }
-
-    /**
-     * Get classe
-     *
-     * @return string
-     */
-    public function getClasse()
-    {
-        return $this->classe;
-    }
 }

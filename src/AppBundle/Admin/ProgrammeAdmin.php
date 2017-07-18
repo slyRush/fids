@@ -66,12 +66,15 @@ class ProgrammeAdmin extends Admin
                                 }
                             },*/
                             'choice_label' => function ($value, $key, $index) {
-                                
+                                $classe = '';
+                                if($value->getClasse() != ''){
+                                    $classe = ' - Classe: '. $value->getClasse();
+                                }
                                 if ($value->getType() == 'national') {
-                                    return 'n° '.$value->getNUmero().' (national)';
+                                    return 'n° '.$value->getNUmero().' (national'.$classe.')';
                                 } else {
 
-                                    return 'n° '.$value->getNUmero().' (international)';
+                                    return 'n° '.$value->getNUmero().' (international'.$classe.')';
                                 }
                             },
                             'query_builder' => function (\Doctrine\ORM\EntityRepository $repository) {
@@ -113,17 +116,7 @@ class ProgrammeAdmin extends Admin
                                 return $query ;
                            }
                          ))                
-                    ->add('classe', 'choice', array(
-                        'label' => 'Classe',
-                        'required' => false,
-                        'choices' => array(
-                            "" => "",
-                            'economique' => 'Economique',
-                            'affaire' => 'Affaire',
-                            'premiere classe' => 'Première classe'
-                        ),
-                        'data' => ""
-                    ))
+
                     ->end()               
                 ->end()
                 ->tab('Statut')  

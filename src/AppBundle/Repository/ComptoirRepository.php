@@ -20,8 +20,8 @@ class ComptoirRepository extends \Doctrine\ORM\EntityRepository
 	public function getCheckList(){
         
         $sql = $this->createQueryBuilder('cpt')
-                ->select("cpt.id, cpt.numero, cpt.isDispo, cpt.type as comptoir_type,"
-                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,p.classe,"
+                ->select("cpt.id, cpt.numero, cpt.isDispo, cpt.type as comptoir_type, cpt.classe,"
+                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
                         . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
                         . "pc.idComptoir, cpt.numero as num_comptoir")
@@ -43,8 +43,8 @@ class ComptoirRepository extends \Doctrine\ORM\EntityRepository
         $tomorow_enddatetime = $this->getTomorrowsDate();
         
         $sql = $this->createQueryBuilder('cpt')
-                ->select("cpt.id, cpt.numero, cpt.isDispo, cpt.type,"
-                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,p.classe,"
+                ->select("cpt.id, cpt.numero, cpt.isDispo, cpt.type, cpt.classe as classe,"
+                		."p.id as id_programme, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
                         . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
                         . "pc.idComptoir, cpt.numero as num_comptoir,"

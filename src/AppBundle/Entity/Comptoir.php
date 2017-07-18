@@ -53,6 +53,13 @@ class Comptoir
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProgrammeComptoir", mappedBy="comptoir")
      */
     private $programme_comptoirs;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="classe", type="string", length=255, nullable=true)
+     */
+    private $classe;
     
     /**
      * Constructor
@@ -220,5 +227,29 @@ class Comptoir
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set classe
+     *
+     * @param string $classe
+     *
+     * @return Comptoir
+     */
+    public function setClasse($classe)
+    {
+        $this->classe = $classe;
+
+        return $this;
+    }
+
+    /**
+     * Get classe
+     *
+     * @return string
+     */
+    public function getClasse()
+    {
+        return $this->classe;
     }
 }

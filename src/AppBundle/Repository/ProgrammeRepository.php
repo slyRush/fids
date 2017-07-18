@@ -35,7 +35,7 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
         $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
         $tomorow_enddatetime = $this->getTomorrowsDate();
         $sql = $this->createQueryBuilder('p')
-                ->select("p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,p.classe,"
+                ->select("p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
                         . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo")
                 ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
@@ -60,7 +60,7 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
         $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
         $tomorow_enddatetime = $this->getTomorrowsDate();
         $sql = $this->createQueryBuilder('p')
-                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,p.classe,"
+                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
                         . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
                         . "pc.idComptoir, cpt.numero as num_comptoir")
@@ -90,10 +90,10 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
         $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
         $tomorow_enddatetime = $this->getTomorrowsDate();
         $sql = $this->createQueryBuilder('p')
-                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,p.classe,"
+                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
                         . "v.nom as nom_vol, v.depart as depart, v.destination as destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
-                        . "pc.idComptoir, cpt.numero as num_comptoir,"
+                        . "pc.idComptoir, cpt.numero as num_comptoir, cpt.classe as classe,"
                         . "pp.idPorte, por.numero as num_porte")
                 ->innerJoin('AppBundle:Vols', 'v', 'WITH', "v.id = p.idVols")
                 ->innerJoin('AppBundle:Compagnie', 'c', 'WITH', "c.id = v.idCompagnie")
@@ -119,7 +119,7 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
         $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
         $tomorow_enddatetime = $this->getTomorrowsDate();
         $sql = $this->createQueryBuilder('p')
-                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,p.classe,"
+                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
                         . "v.nom as nom_vol, v.depart, v.destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
                         . "pc.idPorte, cpt.numero as num_porte")
@@ -149,7 +149,7 @@ class ProgrammeRepository extends \Doctrine\ORM\EntityRepository
         $today_enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
         $tomorow_enddatetime = $this->getTomorrowsDate();
         $sql = $this->createQueryBuilder('p')
-                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,p.classe,"
+                ->select("p.id, p.heureDepart, p.heureArrivee, p.statut, p.checkIn, p.typeAffichage, p.situationBagage,"
                         . "v.nom as nom_vol, v.depart as depart, v.destination as destination, v.type, v.reseau, "
                         . "c.nom as compagnie, c.logo,"
                         . "pc.idComptoir, cpt.numero as num_comptoir,"

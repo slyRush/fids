@@ -49,6 +49,17 @@ class ComptoirAdmin extends Admin
                             
                         )
                     ))
+            ->add('classe', 'choice', array(
+                'label' => 'Classe',
+                'required' => false,
+                'choices' => array(
+                    "" => "",
+                    'economique' => 'Economique',
+                    'affaire' => 'Affaire',
+                    'premiere classe' => 'Première classe'
+                ),
+                'data' => ""
+            ))
         ;
     }
 
@@ -64,6 +75,7 @@ class ComptoirAdmin extends Admin
         $listMapper 			
             ->add('numero', 'string',  array('label'=>'Comptoir N°'))
             ->add('type', 'string',  array('label'=>'Type'))        
+            ->add('classe', 'string',  array('label'=>'Classe'))
             ->add('isDispo', null,  array(
                     'label'=>'Disponibilité',
                     'template' => "AppBundle:Admin:disponibilite.html.twig"
