@@ -1,7 +1,8 @@
 {% extends 'AppBundle:Front:base_display.html.twig'%}
 {% block headerbody %}{% endblock %}
 {% block mostviewbody %}
-    <div class="row">
+    <div class="row" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+         xmlns="http://www.w3.org/1999/html">
         <div class="col-md-1" style="vertical-align: middle;" align="center">
             <span class="num_comptoir-content num_comptoir">{{flight[0]['num_comptoir']}}{#20#}</span>
         </div>
@@ -39,7 +40,7 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-6" align="left">
-                    <div class="label_hour">porte d'embarquement :</div>
+                    <div class="label_hour" >porte d'embarquement :</div>
                 </div>
                 <div class="col-md-4" align="left">
                 <span class="num_porte-content num-porte-custom">{#2,5,8#}
@@ -55,12 +56,11 @@
         </div>
         <div class="col-md-1"></div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-bottom:20px;">
         <div class="col-md-12 container-nom_vol" align="center">
             <div class="nom-vol-custom">{{flight[0]['nom_vol']}}{#TT 235#}</div>
         </div>
-    </div>
-    <div class="row">
+
         <div class="col-md-12 destination-custom lieu-content" align="center">
             {% if flight[0]['type'] == "depart" %}
                 {{flight[0]['destination']}}
@@ -68,8 +68,7 @@
                 {{flight[0]['depart']}}
             {% endif %}
         </div>
-    </div>
-    <div class="row">
+
         <div class="col-md-12 classe-content" align="center">
             {% set classe = flight[0]['classe'] %}
                 {% if classe == "economique" %}
@@ -81,8 +80,7 @@
                 {% endif %} 
 
         </div>
-    </div>
-    <div class="row">
+
         <div class="col-md-12 status-check-custom" align="center">
             <div class="status-content status-content-custom">{#Check-in#}
                 {% set status = flight[0]['checkIn'] %}
